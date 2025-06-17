@@ -20,7 +20,7 @@ export default function SignIn() {
   const [hover, setHover] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
 
-  const router = useRouter()
+  const router = useRouter();
 
   const handleSignIn = async () => {
     if (!email || !password) {
@@ -30,14 +30,17 @@ export default function SignIn() {
 
     try {
       setLoading(true);
-      const response = await axios.post(`${BACKEND_URL}/api/v1/login`);
+      const response = await axios.post(`${BACKEND_URL}/api/v1/login`, {
+        email,
+        password,
+      });
 
       const token = response.data.token;
-      const userId = response.data.userId
+      const userId = response.data.userId;
       localStorage.setItem("token", token);
       localStorage.setItem("userId", userId);
       setLoading(false);
-      router.push('/')
+      router.push("/");
     } catch {
       toast.error("Error While SignIn");
       setLoading(false);
@@ -58,17 +61,19 @@ export default function SignIn() {
         </div>
 
         <div className="flex flex-col gap-4 mb-4">
-          <Label>Email</Label>
+          <Label htmlFor="email">Email</Label>
           <Input
+            id={"email"}
             placeholder="Enter you'r email"
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
 
         <div className="flex flex-col gap-4 mb-8">
-          <Label>Password</Label>
+          <Label htmlFor="password">Password</Label>
           <Input
-          type = "password"
+            id={"password"}
+            type="password"
             placeholder="Enter you'r email"
             onChange={(e) => setPassword(e.target.value)}
           />

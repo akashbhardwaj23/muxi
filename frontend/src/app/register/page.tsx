@@ -62,24 +62,27 @@ export default function Register() {
         </div>
 
         <div className="flex flex-col gap-4 mb-4">
-          <Label>Email</Label>
+          <Label htmlFor="email">Email</Label>
           <Input
+          id="email"
             placeholder="Enter you'r email"
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
 
         <div className="flex flex-col gap-4 mb-4">
-          <Label>Name</Label>
+          <Label htmlFor="name">Name</Label>
           <Input
+          id="name"
             placeholder="Enter you'r name"
             onChange={(e) => setName(e.target.value)}
           />
         </div>
 
         <div className="flex flex-col gap-4 mb-8">
-          <Label>Password</Label>
+          <Label htmlFor="password">Password</Label>
           <Input
+          id={"password"}
             placeholder="Enter you'r password"
             onChange={(e) => setPassword(e.target.value)}
           />

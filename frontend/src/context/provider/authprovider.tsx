@@ -11,8 +11,7 @@ export function AuthProvider({
     const [authenticated, setAuthenticated] = useState(false)
     const [hasAuthenticated, setHasAuthenticated] = useState(false)
 
-    useEffect(() => {
-        
+    useEffect(() => { 
     if(window !== undefined){
         const token = localStorage.getItem("token")
         const userId = localStorage.getItem("userId")
