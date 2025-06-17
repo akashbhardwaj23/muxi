@@ -4,13 +4,21 @@ import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-b
 import { IconBrandFacebook, IconBrandGithub, IconBrandGoogle, IconBrandNextjs, IconBrandReact, IconBrandX } from "@tabler/icons-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  const token = localStorage.getItem('token');
-  const userId = localStorage.getItem('userId');
-
-  const href = (!token || !userId) ? "/signin" : "/rooms"
+  const [href, setHref] = useState('/signin')
   const { resolvedTheme } = useTheme()
+
+  
+  
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+  const userId = localStorage.getItem('userId');
+    const href = (!token || !userId) ? "/signin" : "/rooms"
+    setHref(href)
+  }, [])
+ 
 
   return (
     <div>
