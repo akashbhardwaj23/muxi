@@ -5,6 +5,7 @@
   "scripts": {
     "build": "tsc -b",
     "start": "npm run build && node dist/index.js",
+    "prisma:generate" : "npx prisma generate",
     "dev" : "node dist/index.js"
   },
   "keywords": [],
