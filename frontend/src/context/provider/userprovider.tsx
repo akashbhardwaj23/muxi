@@ -8,8 +8,8 @@ import { createContext, Dispatch, SetStateAction, useContext, useEffect, useStat
 
 
 interface UserContext {
-    user : User | undefined,
-    setUser : Dispatch<SetStateAction<User | undefined>>
+    user : User | null,
+    setUser : Dispatch<SetStateAction<User | null>>
 }
 
 
@@ -25,22 +25,25 @@ export default function UserProvider({
 } : {
     children : React.ReactNode
 }){
-    const [user, setUser] = useState<User>()
+    const [user, setUser] = useState<User | null>(null)
     
     useEffect(() => {
         const userId = localStorage.getItem("userId")
-        const fetchUser = async () => {
-            try {
-                const response = await axios.get(`${BACKEND_URL}/api/v1/user/${userId}`);
-                const data = response.data;
-                setUser(data.user);
-            } catch (error) {
-                console.log(error)
+        if(userId){
+            const fetchUser = async () => {
+                try {
+                    const response = await axios.get(`${BACKEND_URL}/api/v1/user/${userId}`);
+                    const data = response.data;
+                    setUser(data.user);
+                } catch (error) {
+                    console.log(error)
+                }
             }
+    
+    
+            fetchUser()
         }
-
-
-        fetchUser()
+        setUser(null)
     }, [])
 
 
