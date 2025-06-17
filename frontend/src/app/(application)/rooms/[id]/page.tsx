@@ -61,7 +61,7 @@ export default function RoomComponent({}) {
 
   if (error || !tracks || !currentTrack || componentError || !room) {
     return (
-      <div className="flex justify-center items-center text-red-500 text-2xl mt-10">
+      <div className="flex justify-center items-center min-h-screen text-red-500 text-2xl mt-10">
         {error}
       </div>
     );

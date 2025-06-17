@@ -47,6 +47,8 @@ export default function SignIn() {
     }
   };
 
+  const MotionButtonComponent = motion.create(Button);
+
   return (
     <div className="flex flex-col relative items-center justify-center h-[40.6rem] gap-10">
       <Toaster />
@@ -56,9 +58,11 @@ export default function SignIn() {
         transition={{ duration: 0.3 }}
         className="flex flex-col shadow-2xl border border-border bg-background font-poppins relative rounded-[40px] p-6 px-10 w-[40rem] overflow-hidden before:h-10 before:absolute before:bg-conic before:bg-red-700"
       >
-        <div className="text-4xl flex justify-center p-2 items-center w-full mb-4 font-bold text-transparent bg-clip-text bg-gradient-to-br from-sky-400 to-sky-600
+        <div
+          className="text-4xl flex justify-center p-2 items-center w-full mb-4 font-bold text-transparent bg-clip-text bg-gradient-to-br from-sky-400 to-sky-600
         dark:bg-none dark:text-white
-        ">
+        "
+        >
           <h1>Sign In</h1>
         </div>
 
@@ -81,14 +85,23 @@ export default function SignIn() {
           />
         </div>
 
-        <div className="flex w-full mb-4">
-          <Button
+        <div className="flex justify-center w-full mb-4">
+          <MotionButtonComponent
+            whileHover={{
+              width: "80%",
+            }}
+            transition={{
+              duration: 0.3,
+              type : "spring",
+              damping : 10,
+              ease: "easeInOut",
+            }}
             variant={"default"}
-            className="w-full cursor-pointer rounded-[40px] bg-gradient-to-r from-sky-400 via-sky-500 to-sky-600 dark:bg-none dark:bg-white"
+            className="w-[60%] cursor-pointer rounded-[40px] shadow-[-2px_-5px_2px_var(--foreground)_inset] bg-gradient-to-r from-sky-400 via-sky-500 to-sky-600 dark:bg-none dark:bg-white"
             onClick={handleSignIn}
           >
             {loading ? <Loader className="top-0 h-4" /> : <span>Sign In</span>}
-          </Button>
+          </MotionButtonComponent>
         </div>
 
         <div className="text-neutral-600 flex text-sm gap-4 mb-8">
@@ -161,7 +174,7 @@ export default function SignIn() {
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         whileHover={{
-            width : "40rem"
+          width: "40rem",
         }}
         transition={{ duration: 0.3 }}
       >

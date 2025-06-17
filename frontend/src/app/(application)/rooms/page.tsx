@@ -14,6 +14,7 @@ import { useMusicContext } from "@/context/provider/musiccontext";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { selectRandomColor } from "@/lib/color";
+import { ShineBorder } from "@/components/magicui/shine-border";
 
 interface DataType {
   name: string;
@@ -122,15 +123,15 @@ export default function Rooms() {
             to bottom, 
             rgba(0, 0, 0, 0) 0%,
             rgba(0, 0, 0, 1) 10%,
-            rgba(0, 0, 0, 1) 90%,
-            rgba(0, 0, 0, 1) 100%
+            rgba(0, 0, 0, 1) 90%
             )`,
       }}
       className="bg-gradient-to-br from-blue-300/90 via-white to-rose-300 h-full w-full pb-40 dark:bg-none dark:bg-background"
     >
-      <div className="max-w-4xl mx-auto h-screen flex flex-col items-center gap-10">
+      <div className="max-w-4xl mx-auto min-h-screen flex flex-col items-center gap-10">
         <Toaster />
-        <div className="bg-card p-10 border border-border w-[60%] rounded-[40px]">
+        <div className="p-10 bg-card border border-border relative w-[60%] z-50 rounded-[40px] dark:bg-transparent ">
+            <ShineBorder shineColor={["#A07CFE", "#FE8FB5", "#FFBE7B"]}/>
           <div className="flex flex-col items-center w-full gap-10">
             <h1 className="text-4xl font-poppins font-bold">
               {dataLoading ? <Loader /> : <span>Create Room</span>}
@@ -178,7 +179,7 @@ export default function Rooms() {
                     style={{
                       backgroundColor: color,
                     }}
-                    className="bg-card w-60 border border-border p-1 rounded-[40px] text-black shadow-sm cursor-pointer"
+                    className="bg-card w-72 border border-border p-1 rounded-[40px] text-black shadow-sm cursor-pointer"
                     key={index}
                   >
                     <div
@@ -194,7 +195,7 @@ export default function Rooms() {
                         <span className="font-poppins font-bold text-sm">
                           Description :{" "}
                         </span>
-                        <span className="w-full whitespace-wrap">
+                        <span className="w-full break-words">
                           {room.description}
                         </span>
                       </p>
