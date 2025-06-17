@@ -6,6 +6,10 @@ import { useTheme } from "next-themes";
 import Link from "next/link";
 
 export default function Home() {
+  const token = localStorage.getItem('token');
+  const userId = localStorage.getItem('userId');
+
+  const href = (!token || !userId) ? "/signin" : "/rooms"
   const { resolvedTheme } = useTheme()
 
   return (
@@ -34,7 +38,7 @@ export default function Home() {
           </p>
         </div>
         <div>
-          <Link href={"/rooms"}>
+          <Link href={href}>
             <InteractiveHoverButton
               style={{
                 maskImage:

@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { motion } from "motion/react";
 import { BorderBeam } from "@/components/magicui/border-beam";
-import { IconBrandGoogle } from "@tabler/icons-react";
+import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
 import axios from "axios";
 import { BACKEND_URL } from "@/config/config";
 import Loader from "@/components/loader";
@@ -48,15 +48,17 @@ export default function SignIn() {
   };
 
   return (
-    <div className="flex flex-col relative items-center justify-center h-screen gap-10">
+    <div className="flex flex-col relative items-center justify-center h-[40.6rem] gap-10">
       <Toaster />
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.3 }}
-        className="flex flex-col shadow-2xl border border-border bg-background font-poppins relative rounded-[12px] p-6 px-10 w-[40rem] overflow-hidden before:h-10 before:absolute before:bg-conic before:bg-red-700"
+        className="flex flex-col shadow-2xl border border-border bg-background font-poppins relative rounded-[40px] p-6 px-10 w-[40rem] overflow-hidden before:h-10 before:absolute before:bg-conic before:bg-red-700"
       >
-        <div className="text-4xl flex justify-center p-2 items-center w-full mb-4 font-bold text-transparent bg-clip-text bg-gradient-to-br from-sky-200 to-sky-400">
+        <div className="text-4xl flex justify-center p-2 items-center w-full mb-4 font-bold text-transparent bg-clip-text bg-gradient-to-br from-sky-400 to-sky-600
+        dark:bg-none dark:text-white
+        ">
           <h1>Sign In</h1>
         </div>
 
@@ -82,7 +84,7 @@ export default function SignIn() {
         <div className="flex w-full mb-4">
           <Button
             variant={"default"}
-            className="w-full cursor-pointer rounded-[10px] bg-gradient-to-r from-sky-200 via-sky-300 to-sky-400"
+            className="w-full cursor-pointer rounded-[40px] bg-gradient-to-r from-sky-400 via-sky-500 to-sky-600 dark:bg-none dark:bg-white"
             onClick={handleSignIn}
           >
             {loading ? <Loader className="top-0 h-4" /> : <span>Sign In</span>}
@@ -155,13 +157,16 @@ export default function SignIn() {
       ></motion.div>
 
       <motion.div
-        className="w-[40rem]"
+        className="w-[30rem] flex justify-center"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
+        whileHover={{
+            width : "40rem"
+        }}
         transition={{ duration: 0.3 }}
       >
         <Button
-          className="w-full p-4 shadow-2xl h-10 relative"
+          className="w-1/2 p-4 rounded-[40px] shadow-2xl h-10 relative"
           onClick={handleSignIn}
         >
           <IconBrandGoogle /> <span>SignIn Via Google</span>
@@ -172,6 +177,18 @@ export default function SignIn() {
           className="from-transparent via-blue-500 to-transparent"
         /> */}
         </Button>
+        {/* <Button
+          className="w-1/2 p-4 rounded-[40px] shadow-2xl h-10 relative"
+          onClick={handleSignIn}
+        >
+          <IconBrandGithub /><span>SignIn Via Github</span>
+          {/* <BorderBeam
+          duration={6}
+          delay={3}
+          size={400}
+          className="from-transparent via-blue-500 to-transparent"
+        /> */}
+        {/* </Button> */}
       </motion.div>
     </div>
   );

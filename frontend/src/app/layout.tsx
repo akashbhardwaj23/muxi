@@ -3,7 +3,7 @@ import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import { ThemeLayout } from "./(application)/themelayout";
 import { Navbar } from "@/components/ui/navbar";
-import { AuthProvider } from "@/context/provider/authprovider";
+// import { AuthProvider } from "@/context/provider/authprovider";
 import UserProvider from "@/context/provider/userprovider";
 
 const geistSans = Geist({
@@ -40,12 +40,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${poppins.className} bg-gradient-to-br from-blue-300/90 via-white to-rose-300 bg-no-repeat dark:bg-none dark:bg-background antialiased`}
       >
         <ThemeLayout>
-          <AuthProvider>
+          {/* <AuthProvider> */}
             <UserProvider>
             <Navbar />
             {children}
             </UserProvider>
-          </AuthProvider>
+          {/* </AuthProvider> */}
         </ThemeLayout>
       </body>
     </html>
