@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { motion } from "motion/react";
 import { BorderBeam } from "@/components/magicui/border-beam";
-import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
+import { IconBrandGoogle } from "@tabler/icons-react";
 import axios from "axios";
 import { BACKEND_URL } from "@/config/config";
 import Loader from "@/components/loader";
