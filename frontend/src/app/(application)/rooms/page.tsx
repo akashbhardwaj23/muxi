@@ -35,6 +35,15 @@ export default function Rooms() {
 
   const router = useRouter();
 
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    const userId = localStorage.getItem("userId");
+
+    if(!token || !userId){
+        router.push("/signin")
+    }
+  }, [])
+
   const handleClick = async () => {
     const token = localStorage.getItem("token");
     if (!data.name.trim() || !data.description.trim()) {
