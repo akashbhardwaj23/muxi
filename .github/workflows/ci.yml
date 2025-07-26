@@ -21,7 +21,7 @@ jobs:
       - name: Build The docker file
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./
           push: true
           tags: |
             ghcr.io/akashbhardwaj24/muxi-frontend:${{ github.sha }}
