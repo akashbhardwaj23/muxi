@@ -21,12 +21,6 @@ jobs:
           echo "NEXT_PUBLIC_STORAGEBUCKET=${{ secrets.NEXT_PUBLIC_STORAGEBUCKET }}" >> ./frontend/.env
           echo "NEXT_PUBLIC_MESSAGESENDERID=${{ secrets.NEXT_PUBLIC_MESSAGESENDERID }}" >> ./frontend/.env
           echo "NEXT_PUBLIC_APPID=${{ secrets.NEXT_PUBLIC_APPID }}" >> ./frontend/.env
-          cd ./frontend
-          ls
-          cat components.json
-          cat .env
-          cd ..
-
 
       - name: Docker Login
         uses : docker/login-action@v2
