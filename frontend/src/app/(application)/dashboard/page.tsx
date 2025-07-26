@@ -8,6 +8,7 @@ import { IconBubbleText } from "@tabler/icons-react";
 import { MusicIcon } from "lucide-react";
 import {AnimatePresence, motion} from "motion/react"
 import { Model } from "@/components/model";
+import ChatComponent from "@/components/chats";
 
 
 export default function Dashboard() {
@@ -29,7 +30,7 @@ export default function Dashboard() {
 
   return (
     <main className={`max-w-4xl max-auto md:max-w-full`}>
-      <div className="mx-auto px-4 py-6 flex flex-col max-w-7xl">
+      <div className="mx-auto px-4 py-6 flex flex-col max-w-7xl mb-[4.2rem]">
         <div className="relative flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div className="lg:col-span-5 h-full">
             <MusicPlayer
@@ -66,7 +67,7 @@ export default function Dashboard() {
             )}
           </div>
           <AnimatePresence>
-          {openModel && <Model setModelOpen={setModelOpen} />}
+            {openModel && <Model setModelOpen={setModelOpen} />}
           </AnimatePresence>
         </div>
       </div>
