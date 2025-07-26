@@ -128,7 +128,7 @@ export default function Rooms() {
       }}
       className="bg-gradient-to-br from-blue-300/90 via-white to-rose-300 h-full w-full pb-40 dark:bg-none dark:bg-background"
     >
-      <div className="max-w-4xl mx-auto min-h-screen flex flex-col items-center gap-10">
+      <div className="max-w-4xl mx-auto min-h-screen flex flex-col items-center pt-10 gap-10">
         <Toaster />
         <div className="p-10 bg-card border border-border relative w-[60%] z-50 rounded-[40px] dark:bg-transparent ">
             <ShineBorder shineColor={["#A07CFE", "#FE8FB5", "#FFBE7B"]}/>

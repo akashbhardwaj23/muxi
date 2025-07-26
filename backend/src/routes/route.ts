@@ -11,6 +11,7 @@ router.post("/login", async (req: Request, res: Response) => {
   const success = SignInInputs.safeParse(req.body);
 
   if (!success.success) {
+    console.log("signin inputs ", req.body)
     res.status(403).json({
       message: "Inputs are Incorrect",
     });
@@ -50,6 +51,7 @@ router.post("/login", async (req: Request, res: Response) => {
       token,
     });
   } catch (error) {
+    console.log("prisma error ", error);
     res.status(403).json({
       message: "Email Already Present",
     });
@@ -62,6 +64,7 @@ router.post("/register", async (req: Request, res: Response) => {
   const success = SignUpInputs.safeParse(body);
 
   if (!success.success) {
+    console.log("signup inputs ", req.body)
     res.status(403).json({
       message: "Inputs are not correct",
     });
@@ -71,6 +74,7 @@ router.post("/register", async (req: Request, res: Response) => {
   const hashedPassword = await bcryptjs.hash(success.data.password, 8);
 
   try {
+    console.log("here")
     const user = await prisma.user.create({
       data: {
         email: success.data.email,
@@ -86,7 +90,7 @@ router.post("/register", async (req: Request, res: Response) => {
       token,
     });
   } catch (error) {
-    console.log("Error user Present");
+    console.log("prisma error ", error);
     res.status(403).json({
       message: "User Already Present",
     });
@@ -161,12 +165,14 @@ router.post(
           name,
           description,
           songId: songId,
+          owner : user.id
         },
       });
 
       res.json({
         roomId: room.id,
       });
+
     } catch (error) {
       console.log("error is ", error);
       res.status(401).json({
@@ -188,7 +194,7 @@ router.get("/songs", AuthMiddleWare, async (req: Request, res: Response) => {
 router.post(
   "/addSong",
   AuthMiddleWare,
-  async (req: Request, res: Response) => {}
+  async (req: Request, res: Response) => { }
 );
 
 router.get("/rooms", async (req: Request, res: Response) => {
@@ -200,20 +206,21 @@ router.get("/rooms", async (req: Request, res: Response) => {
 });
 
 // router.get("/rooms/:roomId", async (req: Request, res: Response) => {
-//   const {roomId} = req.params;
+//   const { roomId } = req.params;
 //   const room = await prisma.rooms.findUnique({
-//     where : {
-//       id : roomId
+//     where: {
+//       id: roomId
 //     }
 //   })
 
 //   res.json({
-//       rooms : rooms
+//     room: room
 //   })
 // })
 
 router.get("/songs/:songId", async (req: Request, res: Response) => {
   const { songId } = req.params;
+  console.log("song id is ", songId)
   try {
     const song = await prisma.songs.findUnique({
       where: {
@@ -256,8 +263,9 @@ router.get(
         },
       });
 
-      console.log(room);
+      // console.log(room);
 
+      console.log("user is ", userId)
       if (!room) {
         res.status(404).json({
           message: "No Song Found",
@@ -288,8 +296,9 @@ router.get(
         room,
       });
     } catch (error) {
+      console.log("error is ", error)
       res.status(403).json({
-        message: "Error While Getting Songs",
+        message: "Error User Already Present",
       });
     }
   }

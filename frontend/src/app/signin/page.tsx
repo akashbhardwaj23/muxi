@@ -9,16 +9,59 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import { BorderBeam } from "@/components/magicui/border-beam";
 import { IconBrandGoogle } from "@tabler/icons-react";
-import axios from "axios";
+import axios, { Axios, AxiosError } from "axios";
 import { BACKEND_URL } from "@/config/config";
 import Loader from "@/components/loader";
 import { useRouter } from "next/navigation";
+import { sendSigninRequest } from "@/google/user";
+import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import { UserProfileType } from "@/config/types";
+
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [hover, setHover] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('')
+
+
+  const login = useGoogleLogin({
+        onSuccess: (response) => {
+            const user = response
+            axios
+                .get(
+                    `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${response.access_token}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${user.access_token}`,
+                            Accept: "application/json",
+                        },
+                    }
+                )
+                .then(async (res) => {
+                    const data:UserProfileType = res.data
+                    const response = await sendSigninRequest(data);
+                    const token = response.data.token;
+                    const userId = response.data.userId;
+                    localStorage.setItem("token", token);
+                    localStorage.setItem("userId", userId);
+                    router.push('/')
+                    // setUserProfile(res.data);
+                })
+                .catch((err:AxiosError) =>{
+                  setError(err.message);
+                  setTimeout(() => {
+                    setError('')
+                  }, 3000)
+                });
+        },
+        onError: (e) => console.log("error is ", e),
+    });
+
+    const logout = () => {
+         googleLogout();
+    };
 
   const router = useRouter();
 
@@ -46,6 +89,20 @@ export default function SignIn() {
       setLoading(false);
     }
   };
+
+
+  const handleGoogleSignIn = async () => {
+    login();
+  }
+
+
+  if(error){
+    return (
+      <div className="min-h-screen flex flex-col justify-center items-center gap-2">
+        <span>{error}</span>
+      </div>
+    )
+  }
 
   const MotionButtonComponent = motion.create(Button);
 
@@ -97,7 +154,7 @@ export default function SignIn() {
               ease: "easeInOut",
             }}
             variant={"default"}
-            className="w-[60%] cursor-pointer rounded-[40px] shadow-[-2px_-5px_2px_var(--foreground)_inset] bg-gradient-to-r from-sky-400 via-sky-500 to-sky-600 dark:bg-none dark:bg-white"
+            className="w-[60%] cursor-pointer rounded-[40px] shadow-[-2px_5px_20px_-10px_var(--foreground)] bg-gradient-to-r from-sky-400 via-sky-500 to-sky-600 dark:bg-none dark:bg-white"
             onClick={handleSignIn}
           >
             {loading ? <Loader className="top-0 h-4" /> : <span>Sign In</span>}
@@ -180,7 +237,7 @@ export default function SignIn() {
       >
         <Button
           className="w-1/2 p-4 rounded-[40px] shadow-2xl h-10 relative"
-          onClick={handleSignIn}
+          onClick={handleGoogleSignIn}
         >
           <IconBrandGoogle /> <span>SignIn Via Google</span>
           {/* <BorderBeam

@@ -5,6 +5,7 @@ import { ThemeLayout } from "./(application)/themelayout";
 import { Navbar } from "@/components/ui/navbar";
 // import { AuthProvider } from "@/context/provider/authprovider";
 import UserProvider from "@/context/provider/userprovider";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,10 +42,12 @@ export default function RootLayout({
       >
         <ThemeLayout>
           {/* <AuthProvider> */}
+          <GoogleOAuthProvider clientId="269213887363-omp8jpk7pchajfl5coekdqmqh68nicva.apps.googleusercontent.com">
             <UserProvider>
             <Navbar />
             {children}
             </UserProvider>
+            </GoogleOAuthProvider>
           {/* </AuthProvider> */}
         </ThemeLayout>
       </body>

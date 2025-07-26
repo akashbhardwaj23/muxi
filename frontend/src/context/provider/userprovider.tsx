@@ -13,12 +13,7 @@ interface UserContext {
 }
 
 
-
-
-
 const UserContext = createContext<UserContext | null>(null)
-
-
 
 export default function UserProvider({
     children

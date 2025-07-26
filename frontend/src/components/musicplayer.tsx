@@ -68,7 +68,7 @@ export default function MusicPlayer({
     setCurrentTrack(newCurrentTrack);
   }, [currentTrack]);
 
-  // console.log("currentTrackId is ", currentTrack)
+  // console.log("currentTrackId is ", currentTrack.songImg)
 
   // const tracks: Track[] = [
   //   {
@@ -201,7 +201,7 @@ export default function MusicPlayer({
     nextTrack();
     setIsPlaying(false);
   };
-  // TODO : what is this
+  
   const handleSeek = (value: number[]) => {
     const newTime = value[0];
     setCurrentTime(newTime);

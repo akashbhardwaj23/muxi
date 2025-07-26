@@ -22,6 +22,7 @@ model Rooms {
   id       String   @id  @default(uuid())
   name     String
   description String
+  owner       String
   users    User[]
   songId   String
   song     Songs    @relation(fields: [songId], references: [id])
@@ -33,6 +34,9 @@ model Songs {
   favorite        Boolean   @default(false)
   room            Rooms[]
   songurl         String
+  isPlaying       Boolean   @default(false)
+  currentPosition Int       @default(0)
   songImg         String
+  duration        Int
   songDescription String
 }

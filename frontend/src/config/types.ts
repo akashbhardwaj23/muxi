@@ -11,6 +11,9 @@
 
 
 
+
+
+
 export type Message = {
     id: number
     text: string
@@ -96,9 +99,21 @@ export interface User {
   id:        string;
   email:     string;
   name:      string;
-  passsword: string;
-  roomId:    string;
+  picture:   string;
+  passsword?: string;
+  roomId?:    string;
 }
+
+export interface UserProfileType {
+  id: string;
+  email: string;
+  name: string;
+  given_name: string;
+  picture: string;
+  verified_email: boolean;
+}
+
+
 
   
 export type TrackType = {

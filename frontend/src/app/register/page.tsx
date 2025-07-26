@@ -48,6 +48,9 @@ export default function Register() {
     }
   };
 
+
+   const MotionButtonComponent = motion.create(Button);
+
   return (
     <div className="flex flex-col items-center justify-center h-screen gap-10">
       <Toaster />
@@ -88,15 +91,24 @@ export default function Register() {
           />
         </div>
 
-        <div className="flex w-full mb-4">
-          <Button
-            variant={"default"}
-            className="w-full cursor-pointer rounded-[10px] bg-gradient-to-r from-sky-600 via-sky-700 to-sky-800"
-            onClick={handleRegister}
-          >
-            {loading ? <Loader className="top-0 h-4" /> : <span>Register</span>}
-          </Button>
-        </div>
+        <div className="flex justify-center w-full mb-4">
+                 <MotionButtonComponent
+                   whileHover={{
+                     width: "80%",
+                   }}
+                   transition={{
+                     duration: 0.3,
+                     type : "spring",
+                     damping : 10,
+                     ease: "easeInOut",
+                   }}
+                   variant={"default"}
+                   className="w-[60%] cursor-pointer rounded-[40px] shadow-[-2px_5px_20px_-10px_var(--foreground)] bg-gradient-to-r from-sky-400 via-sky-500 to-sky-600 dark:bg-none dark:bg-white"
+                   onClick={handleRegister}
+                 >
+                   {loading ? <Loader className="top-0 h-4" /> : <span>Register</span>}
+                 </MotionButtonComponent>
+               </div>
 
         <div className="text-neutral-600 text-sm flex gap-4">
           <p className="relative">
@@ -166,13 +178,16 @@ export default function Register() {
       ></motion.div>
 
       <motion.div
-        className="w-[40rem]"
+        className="w-[30rem] flex justify-center"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
+        whileHover={{
+          width: "60rem",
+        }}
         transition={{ duration: 0.3 }}
       >
         <Button
-          className="w-full p-4 shadow-2xl h-10 relative"
+          className="w-1/2 p-4 rounded-[40px] shadow-2xl h-10 relative"
           onClick={handleRegister}
         >
           <IconBrandGoogle /> <span>SignIn Via Google</span>
@@ -183,6 +198,18 @@ export default function Register() {
           className="from-transparent via-blue-500 to-transparent"
         /> */}
         </Button>
+        {/* <Button
+          className="w-1/2 p-4 rounded-[40px] shadow-2xl h-10 relative"
+          onClick={handleSignIn}
+        >
+          <IconBrandGithub /><span>SignIn Via Github</span>
+          {/* <BorderBeam
+          duration={6}
+          delay={3}
+          size={400}
+          className="from-transparent via-blue-500 to-transparent"
+        /> */}
+        {/* </Button> */}
       </motion.div>
     </div>
   );

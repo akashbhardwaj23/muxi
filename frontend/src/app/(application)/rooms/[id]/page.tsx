@@ -42,6 +42,7 @@ export default function RoomComponent({}) {
           }
         );
         const room: Room = response.data.room;
+        console.log("the room is ", room)
         setRoom(room);
         setLoading(false);
         setCurrenTrack(room.song);

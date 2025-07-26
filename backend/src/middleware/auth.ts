@@ -16,6 +16,7 @@ export async function AuthMiddleWare(req : Request, res : Response, next : NextF
     const token = auth?.split(" ")[1];
 
     if(!token){
+        console.log("unauthorized ", token)
         res.status(403).json({
             message : "UnAuthourized"
         })

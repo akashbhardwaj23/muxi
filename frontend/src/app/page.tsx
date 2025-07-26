@@ -11,10 +11,9 @@ export default function Home() {
   const { resolvedTheme } = useTheme()
 
   
-  
   useEffect(() => {
     const token = localStorage.getItem('token');
-  const userId = localStorage.getItem('userId');
+    const userId = localStorage.getItem('userId');
     const href = (!token || !userId) ? "/signin" : "/rooms"
     setHref(href)
   }, [])

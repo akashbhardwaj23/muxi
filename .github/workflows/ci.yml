@@ -1,0 +1,13 @@
+name: Continous Deployment
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build and Deploy:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Docker Login
