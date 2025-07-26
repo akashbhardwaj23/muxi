@@ -11,3 +11,33 @@ jobs:
         with:
           fetch-depth: 0
       - name: Docker Login
+        uses : docker/login-action@v2
+        with: 
+          username: ${{secrets.DOCKER_USERNAME}}
+          password: ${{secres.DOCKER_TOKEN}}
+      - name: Docker Buildx Setup
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build The docker file
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/akashbhardwaj24/muxi-frontend:${{ github.sha }}
+            ghcr.io/akashbhardwaj24/muxi-backend:${{ github.sha }}
+
+      
+      - name: Clone the Ops Repo
+        env:
+          PAT: ${{ secrets.PAT }}
+        run: |
+          git clone https://github.com/akashbhardwaj23/ops.git
+          cd ops
+          sed -i 's|image: akashbhardwaj24/muxi-frontend:.*|image: akashbhardwaj24/muxi-frontend:${{ github.sha }}|' staging/muxi/deployment.yml
+          sed -i 's|image: akashbhardwaj24/muxi-backend:.*|image: akashbhardwaj24/muxi-backend:${{github.sha}}|' staging/muxi/deployment.yml
+          git config user.name "Github Actions Bot"
+          git config user.email "github@actions.com"
+          git add staging/muxi/deployment.yml
+          git commit -m "Updated muxi images to ${{ github.sha }}"
+          git push https://${PAT}@github.com/akashbhardwaj23/ops.git main

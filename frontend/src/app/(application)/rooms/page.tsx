@@ -79,8 +79,6 @@ export default function Rooms() {
     }
   };
 
-  console.log("data is ", data);
-
   const getRooms = useCallback(async () => {
     try {
       setLoading(true);

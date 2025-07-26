@@ -9,12 +9,12 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import { BorderBeam } from "@/components/magicui/border-beam";
 import { IconBrandGoogle } from "@tabler/icons-react";
-import axios, { Axios, AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 import { BACKEND_URL } from "@/config/config";
 import Loader from "@/components/loader";
 import { useRouter } from "next/navigation";
 import { sendSigninRequest } from "@/google/user";
-import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 import { UserProfileType } from "@/config/types";
 
 
@@ -58,10 +58,6 @@ export default function SignIn() {
         },
         onError: (e) => console.log("error is ", e),
     });
-
-    const logout = () => {
-         googleLogout();
-    };
 
   const router = useRouter();
 
