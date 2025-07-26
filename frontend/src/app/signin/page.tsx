@@ -103,7 +103,7 @@ export default function SignIn() {
   const MotionButtonComponent = motion.create(Button);
 
   return (
-    <div className="flex flex-col relative items-center justify-center h-[40.6rem] gap-10">
+    <div className="flex flex-col relative items-center justify-center h-[41rem] gap-10">
       <Toaster />
       <motion.div
         initial={{ y: 20, opacity: 0 }}
@@ -141,10 +141,10 @@ export default function SignIn() {
         <div className="flex justify-center w-full mb-4">
           <MotionButtonComponent
             whileHover={{
-              width: "80%",
+              width: "100%",
             }}
             transition={{
-              duration: 0.3,
+              duration: 0.8,
               type : "spring",
               damping : 10,
               ease: "easeInOut",

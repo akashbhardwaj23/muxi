@@ -1,29 +1,15 @@
 import { prisma } from "../db/db"
-import { v2 as cloudinary } from "cloudinary"
+import { getAllImages, getAllMp3 } from "../lib/utils";
 
 export let SONG_UPLOADED = false
-
-cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLODINARY_API_KEY,
-    api_secret: process.env.CLODINARY_API_SECRET,
-    secure: true
-});
 
 
 export async function songUpload() {
     const songs = await prisma.songs.findMany({})
     if (songs.length === 0) {
 
-        const dateToSearch = new Date('2025-04-01T00:00:00Z');
-        const isoDateString = dateToSearch.toISOString();
-        let expressionImage = `resource_type:image AND created_at>="${isoDateString}"`
-        let expressionVideo = `resource_type:video AND created_at>="${isoDateString}"`
-        // const resourceTypeImage = `resource_type:"image"`
-        // const resourceTypeVideo = `resource_type:"video"`
-        const responseImages = await cloudinary.search.expression(expressionImage).sort_by('created_at', 'asc').max_results(500).execute()
-
-        const responseVideo = await cloudinary.search.expression(expressionVideo).sort_by('created_at', 'asc').max_results(500).execute()
+        const responseImages = await getAllImages();
+        const responseVideo = await getAllMp3()
         const imageData:SongImageTypeCloudinary[]= responseImages.resources;
         const videoData:SongTypeCloudinary[] = responseVideo.resources;
 

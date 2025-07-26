@@ -52,13 +52,13 @@ export default function Register() {
    const MotionButtonComponent = motion.create(Button);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen gap-10">
+    <div className="flex flex-col items-center justify-center h-[41rem] gap-10">
       <Toaster />
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.3 }}
-        className="flex flex-col shadow-2xl bg-background font-poppins relative rounded-[12px] p-6 px-10 w-[40rem] overflow-hidden before:h-10 before:absolute before:bg-conic before:bg-red-700"
+        className="flex flex-col shadow-2xl bg-background font-poppins relative rounded-[40px] p-6 px-10 w-[40rem] overflow-hidden before:h-10 before:absolute before:bg-conic before:bg-red-700"
       >
         <div className="text-4xl flex justify-center items-center w-full mb-4 font-bold text-transparent bg-clip-text bg-gradient-to-br from-sky-400 to-sky-600">
           <h1>Register</h1>
@@ -94,12 +94,12 @@ export default function Register() {
         <div className="flex justify-center w-full mb-4">
                  <MotionButtonComponent
                    whileHover={{
-                     width: "80%",
+                     width: "100%",
                    }}
                    transition={{
-                     duration: 0.3,
+                     duration: 0.8,
                      type : "spring",
-                     damping : 10,
+              damping : 10,
                      ease: "easeInOut",
                    }}
                    variant={"default"}

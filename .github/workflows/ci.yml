@@ -37,7 +37,16 @@ jobs:
         with:
           context: ./frontend
           push: true
+          env:
+            NEXT_PUBLIC_APIKEY=${{ secrets.NEXT_PUBLIC_APIKEY }}
+            NEXT_PUBLIC_AUTHDOMAIN=${{ secrets.NEXT_PUBLIC_AUTHDOMAIN }}
+            NEXT_PUBLIC_PROJECTID=${{ secrets.NEXT_PUBLIC_PROJECTID }}
+            NEXT_PUBLIC_DATABASE_URL=${{ secrets.NEXT_PUBLIC_DATABASE_URL }}
+            NEXT_PUBLIC_STORAGEBUCKET=${{ secrets.NEXT_PUBLIC_STORAGEBUCKET }}
+            NEXT_PUBLIC_MESSAGESENDERID=${{ secrets.NEXT_PUBLIC_MESSAGESENDERID }}
+            NEXT_PUBLIC_APPID=${{ secrets.NEXT_PUBLIC_APPID }}
           tags: akashbhardwaj24/muxi-frontend:${{ github.sha }}
+
 
       - name: Build the backend docker file
         uses: docker/build-push-action@v4

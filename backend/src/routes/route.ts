@@ -4,6 +4,7 @@ import { prisma } from "../db/db";
 import jwt from "jsonwebtoken";
 import bcryptjs from "bcryptjs";
 import { AuthMiddleWare } from "../middleware/auth";
+import { getAllImages } from "../lib/utils";
 
 const router = Router();
 
@@ -244,6 +245,15 @@ router.get("/songs/:songId", async (req: Request, res: Response) => {
     });
   }
 });
+
+router.get("/images", async (req, res) => {
+  const imageResource = await getAllImages();
+  const allImages = imageResource.resources;
+  console.log("all images ", allImages)
+  res.json({
+    images : allImages
+  })
+})
 
 router.get(
   "/rooms/:roomId",
