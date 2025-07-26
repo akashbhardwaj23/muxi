@@ -23,6 +23,7 @@ jobs:
           echo "NEXT_PUBLIC_APPID=${{ secrets.NEXT_PUBLIC_APPID }}" >> ./frontend/.env
           cd ./frontend
           ls
+          cat components.json
           cat .env
           cd ..
 
