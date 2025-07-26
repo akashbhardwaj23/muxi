@@ -16,9 +16,9 @@ jobs:
         run : |
           echo "NEXT_PUBLIC_APIKEY=${{ secrets.NEXT_PUBLIC_APIKEY }}" > ./frontend/.env
           echo "NEXT_PUBLIC_AUTHDOMAIN=${{ secrets.NEXT_PUBLIC_AUTHDOMAIN }}" >> ./frontend/.env
-          echo "NEXT_PUBLIC_PROJECTID=${{ secrets.NEXT_PUBLIC_PROJECTID }}" > ./frontend/.env
+          echo "NEXT_PUBLIC_PROJECTID=${{ secrets.NEXT_PUBLIC_PROJECTID }}" >> ./frontend/.env
           echo "NEXT_PUBLIC_DATABASE_URL=${{ secrets.NEXT_PUBLIC_DATABASE_URL }}" >> ./frontend/.env
-          echo "NEXT_PUBLIC_STORAGEBUCKET=${{ secrets.NEXT_PUBLIC_STORAGEBUCKET }}" > ./frontend/.env
+          echo "NEXT_PUBLIC_STORAGEBUCKET=${{ secrets.NEXT_PUBLIC_STORAGEBUCKET }}" >> ./frontend/.env
           echo "NEXT_PUBLIC_MESSAGESENDERID=${{ secrets.NEXT_PUBLIC_MESSAGESENDERID }}" >> ./frontend/.env
           echo "NEXT_PUBLIC_APPID=${{ secrets.NEXT_PUBLIC_APPID }}" >> ./frontend/.env
           cd ./frontend
