@@ -334,13 +334,13 @@ export default function ChatComponent({ room }: { room: Room }) {
             </div>
           </div>
 
-          <div className="p-4 border-t border-border w-[60%] mx-auto md:w-full">
+          <div className="p-2 md:p-4 border-t border-border mx-auto md:w-full">
             <form onSubmit={handleSendMessage} className="space-y-3">
               <div className="flex items-center gap-2">
                 <Tooltip>
                   <TooltipTrigger>                <button
                   type="button"
-                  className="flex items-center justify-center size-10 text-muted-foreground hover:text-forground hover:bg-accent rounded-[10px]"
+                  className="flex items-center justify-center md:size-10 size-4 text-muted-foreground hover:text-forground hover:bg-accent rounded-[10px]"
                 >
                   <Paperclip size={18} />
                 </button>
@@ -353,14 +353,14 @@ export default function ChatComponent({ room }: { room: Room }) {
                   value={newMessage}
                   onChange={(e) => setNewMessage(e.target.value)}
                   placeholder="Type your message..."
-                  className="flex-1 bg-muted/30 border border-border text-forground placeholder:text-muted-foreground focus:ring-1 focus:ring-purple-600 outline-none px-3 py-2 rounded-[10px]"
+                  className="flex-1 bg-muted/30 border border-border text-forground w-[90%] placeholder:text-muted-foreground focus:ring-1 focus:ring-purple-600 outline-none p-2 md:px-3 md:py-2 rounded-[10px]"
                 />
 
                 <div className="relative">
                   <button
                     type="button"
                     onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                    className="flex items-center justify-center size-10 text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--accent)] rounded-[10px]"
+                    className="flex items-center justify-center md:size-10 size-4 text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--accent)] rounded-[10px]"
                   >
                     <Smile size={18} />
                   </button>
@@ -398,7 +398,7 @@ export default function ChatComponent({ room }: { room: Room }) {
                 </Tooltip>
                 <button
                   type="submit"
-                  className="bg-gradient-to-b from-[#b12aff] to-[#b12aff]/60 hover:bg-gradient-to-b hover:from-sky-300s hover:to-rose-300 text-primary-foreground cursor-pointer px-4 py-2 rounded-[10px] flex items-center dark:bg-blue-600 dark:text-white"
+                  className="bg-gradient-to-b from-[#b12aff] to-[#b12aff]/60 hover:bg-gradient-to-b hover:from-sky-300s hover:to-rose-300 text-primary-foreground cursor-pointer text-xs md:text-base p-2 md:px-4 md:py-2 rounded-[10px] flex items-center dark:bg-blue-600 dark:text-white"
                 >
                   <Send size={16} className="mr-2" />
                   <span>Send</span>

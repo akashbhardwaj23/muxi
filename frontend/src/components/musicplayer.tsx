@@ -72,55 +72,6 @@ export default function MusicPlayer({
     setCurrentTrack(newCurrentTrack);
   }, [currentTrack]);
 
-  // console.log("currentTrackId is ", currentTrack.songImg)
-
-  // const tracks: Track[] = [
-  //   {
-  //     id: 1,
-  //     title: "Midnight Echoes",
-  //     artist: "Vercel Audio",
-  //     album: "Digital Landscapes",
-  //     duration: 237,
-  //     coverArt: "/globe.svg",
-  //     audioSrc: "/music.mp3",
-  //     isFavorite: true,
-  //     genre: "Ambient",
-  //   },
-  //   // {
-  //   //   id: 2,
-  //   //   title: "Static Whispers",
-  //   //   artist: "Mono Type",
-  //   //   album: "Terminal",
-  //   //   duration: 195,
-  //   //   coverArt: "/placeholder.svg?height=400&width=400",
-  //   //   audioSrc: "/placeholder-audio.mp3",
-  //   //   isFavorite: false,
-  //   //   genre: "Electronic",
-  //   // },
-  //   // {
-  //   //   id: 3,
-  //   //   title: "Digital Rain",
-  //   //   artist: "Code Ensemble",
-  //   //   album: "Deployment",
-  //   //   duration: 218,
-  //   //   coverArt: "/placeholder.svg?height=400&width=400",
-  //   //   audioSrc: "/placeholder-audio.mp3",
-  //   //   isFavorite: true,
-  //   //   genre: "Ambient",
-  //   // },
-  // ]
-
-  // useEffect(() => {
-  //   const fetchdata = async () => {
-  //     const response = await axios.get(`${BACKEND_URL}//api/v1/songs`);
-
-  //     const data = response.data;
-  //   }
-
-  //   fetchdata()
-  // }, [])
-
-  // const currentTrack = tracks[currentTrackIndex]
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -205,7 +156,7 @@ export default function MusicPlayer({
     nextTrack();
     setIsPlaying(false);
   };
-  
+
   const handleSeek = (value: number[]) => {
     const newTime = value[0];
     setCurrentTime(newTime);
@@ -218,7 +169,7 @@ export default function MusicPlayer({
     setIsMuted(true)
     handleVolumeChange(value)
   }
-  
+
 
 
   const handleUnMute = (value: number[]) => {
@@ -244,11 +195,11 @@ export default function MusicPlayer({
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.3 }}
-                className="flex-1 flex flex-col items-center justify-center gap-5 py-2"
+                className="flex-1 flex flex-col items-center justify-center gap-2 md:gap-5 py-2"
               >
-                <div className="relative w-full max-w-[220px] aspect-square">
+                <div className="relative w-full h-full max-w-[220px] aspect-video md:aspect-square">
                   <motion.div
-                    className="w-full h-full relative"
+                    className="w-full h-fit md:h-full relative bg-pink-400"
                     animate={{
                       scale: isPlaying ? [1, 1.02, 1] : 1,
                       transition: {
@@ -259,7 +210,7 @@ export default function MusicPlayer({
                     }}
                   >
                     <motion.div
-                      className="absolute inset-0"
+                      className="absolute inset-0 h-fit md:h-full"
                       whileHover={{ scale: 1.02 }}
                       transition={{ duration: 0.2 }}
                     >
@@ -268,7 +219,7 @@ export default function MusicPlayer({
                         alt={`${currentTrack.songName} by`}
                         width={600}
                         height={600}
-                        className="w-full h-full rounded-[10px] object-contain"
+                        className="w-72 h-fit bg-black md:w-full md:h-full rounded-[10px] object-contain"
                       />
                     </motion.div>
 
@@ -286,7 +237,7 @@ export default function MusicPlayer({
                 </div>
 
                 <div className="w-full text-center space-y-1">
-                  <h2 className="text-xl font-bold text-forground">
+                  <h2 className="text-xl font-bold text-forground overflow-x-hidden">
                     {currentTrack.songName}
                   </h2>
                   <p className="text-muted-foreground text-sm">
@@ -352,26 +303,26 @@ export default function MusicPlayer({
 
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-               <Tooltip>
-                <TooltipTrigger>
-                 <button className="flex items-center justify-center size-8 backdrop-blur-2xl text-muted-foreground hover:text-forground hover:bg-accent rounded-md">
-                  <Shuffle size={16} />
-                </button>
-                </TooltipTrigger>
-                <TooltipContent className="bg-purple-600 rounded-[10px]">
-                  <p>Building In Progress</p>
-                </TooltipContent>
-               
-              </Tooltip>
-              <Tooltip>
-               <TooltipTrigger>
-                 <button className="flex items-center justify-center size-8 backdrop-blur-2xl text-muted-foreground hover:text-forground hover:bg-accent rounded-[10px]">
-                  <Repeat size={16} />
-                </button>
-               </TooltipTrigger>
-               <TooltipContent className="bg-purple-600 rounded-[10px]">
-                <p>Building In Progress</p>
-               </TooltipContent>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <button className="flex items-center justify-center size-8 backdrop-blur-2xl text-muted-foreground hover:text-forground hover:bg-accent rounded-md">
+                      <Shuffle size={16} />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent className="bg-purple-600 rounded-[10px]">
+                    <p>Building In Progress</p>
+                  </TooltipContent>
+
+                </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <button className="flex items-center justify-center size-8 backdrop-blur-2xl text-muted-foreground hover:text-forground hover:bg-accent rounded-[10px]">
+                      <Repeat size={16} />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent className="bg-purple-600 rounded-[10px]">
+                    <p>Building In Progress</p>
+                  </TooltipContent>
                 </Tooltip>
               </div>
 
@@ -422,7 +373,7 @@ export default function MusicPlayer({
                 </button> */}
 
                 <div className="flex items-center py-2 gap-2">
-                  {!isMuted ? (<Volume2 size={20} className="text-muted-foreground" onClick={() => handleMute([0])} />) : (<VolumeX size={20} className="text-muted-foreground" onClick={() => handleUnMute([0.4])}  />)}
+                  {!isMuted ? (<Volume2 size={20} className="text-muted-foreground" onClick={() => handleMute([0])} />) : (<VolumeX size={20} className="text-muted-foreground" onClick={() => handleUnMute([0.4])} />)}
                   <div className="relative w-16 h-[5px] bg-muted">
                     <div
                       className="absolute h-full bg-primary"

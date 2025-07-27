@@ -6,7 +6,6 @@ import { IconCircleDashedPlus } from "@tabler/icons-react";
 import {
   Tooltip,
   TooltipContent,
-  TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
 
@@ -32,7 +31,7 @@ export default function ListView({
         ease: "easeInOut"
       }}
       className="h-[90%] relative border border-border bg-card shadow-sm rounded-[40px]">
-      <div className="p-10 grid grid-cols-3 gap-4">
+      <div className="p-10 grid grid-cols-1 md:grid-cols-3 gap-4">
         <AnimatePresence>
           {tracks &&
             tracks.map((track, index) => (
@@ -69,11 +68,11 @@ export default function ListView({
               <IconCircleDashedPlus className="w-10 h-10 text-forground backdrop-blur-md" />
             </div>
           </TooltipTrigger>
-          <TooltipContent>
+          <TooltipContent className="bg-purple-600 rounded-[10px]">
             <p>Add New Songs</p>
           </TooltipContent>
         </div>
-      </Tooltip>s
+      </Tooltip>
     </motion.div>
     </div>
   );

@@ -11,7 +11,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <ChatProvider>
       <MusicContextProvider>
          <TooltipProvider>
-        <main className="w-[60%] mx-auto md:w-full">{children}</main>
+        <main className="w-[90%] mx-auto md:w-full">{children}</main>
         </TooltipProvider>
       </MusicContextProvider>
     </ChatProvider>

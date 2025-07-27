@@ -9,7 +9,7 @@ export function Navbar() {
   const router = useRouter();
 
   return (
-      <header className="m-auto max-w-7xl p-4 pt-6">
+      <header className="m-auto md:max-w-7xl max-w-4xl p-4 pt-6">
         <div className="flex items-center justify-between cursor-pointer">
           <motion.div
              initial = {{opacity : 0, x : -50}}

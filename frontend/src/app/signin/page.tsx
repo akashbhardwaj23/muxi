@@ -106,16 +106,16 @@ export default function SignIn() {
   const MotionButtonComponent = motion.create(Button);
 
   return (
-    <div className="flex flex-col relative items-center justify-center h-[41rem] gap-10">
+    <div className="flex flex-col relative items-center justify-center h-full md:h-[41rem] gap-10">
       <Toaster />
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.3 }}
-        className="flex flex-col shadow-2xl border border-border bg-background font-poppins relative rounded-[40px] p-6 px-10 w-[40rem] overflow-hidden before:h-10 before:absolute before:bg-conic before:bg-red-700"
+        className="flex flex-col shadow-2xl border border-border bg-background font-poppins relative rounded-[40px] p-6 md:px-10 w-80 md:w-[40rem] overflow-hidden before:h-10 before:absolute before:bg-conic before:bg-red-700"
       >
         <div
-          className="text-4xl flex justify-center p-2 items-center w-full mb-4 font-bold text-transparent bg-clip-text bg-gradient-to-br from-sky-400 to-sky-600
+          className="text-2xl md:text-4xl flex justify-center p-2 items-center w-full mb-4 font-bold text-transparent bg-clip-text bg-gradient-to-br from-sky-400 to-sky-600
         dark:bg-none dark:text-white
         "
         >

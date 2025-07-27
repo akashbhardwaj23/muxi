@@ -127,14 +127,14 @@ export default function Rooms() {
       //       rgba(0, 0, 0, 1) 90%
       //       )`,
       // }}
-      className="h-full w-full pb-40 dark:bg-none dark:bg-background"
+      className="h-full w-full pb-10 md:pb-40 dark:bg-none dark:bg-background"
     >
       <div className="max-w-4xl mx-auto min-h-screen flex flex-col items-center gap-10">
         <Toaster />
-        <div className="p-10 bg-card border border-border dark:border-forground relative w-[60%] z-50 rounded-[40px] dark:bg-transparent ">
+        <div className="p-8 md:p-10 bg-card border border-border dark:border-forground relative md:w-[60%] w-[90%] z-50 rounded-[40px] dark:bg-transparent ">
           <ShineBorder shineColor={["#A07CFE", "#FE8FB5", "#FFBE7B"]} />
           <div className="flex flex-col items-center w-full gap-10">
-            <h1 className="text-4xl font-poppins font-bold">
+            <h1 className="text-2xl md:text-4xl font-poppins font-bold">
               <span>Create Room</span>
             </h1>
             <div className="w-full flex flex-col gap-2">
@@ -142,6 +142,7 @@ export default function Rooms() {
               <Input
                 type="text"
                 placeholder="Name"
+                className="focus:ring-1 focus:ring-purple-600"
                 onChange={(e) =>
                   setData((prev) => ({ ...prev, name: e.target.value }))
                 }
@@ -151,7 +152,7 @@ export default function Rooms() {
               <Label>Description</Label>
               <textarea
                 placeholder="Description"
-                className="p-2 border border-border rounded-[10px]"
+                className="p-2 border border-border rounded-[10px] focus:ring-purple-600"
                 onChange={(e) =>
                   setData((prev) => ({ ...prev, description: e.target.value }))
                 }
@@ -177,8 +178,8 @@ export default function Rooms() {
             </div>
           </div>
         </div>
-        <div className="mb-10 p-4">
-          <h2 className="text-4xl font-poppins font-bold mb-4">Rooms</h2>
+        <div className="mb-8 md:mb-10 p-4">
+          <h2 className="text-2xl md:text-4xl font-poppins font-bold mb-4">Rooms</h2>
           <div className="grid grid-cols-2 gap-4 w-full">
             {rooms.length > 0 &&
               rooms.map((room, index) => (
@@ -187,33 +188,32 @@ export default function Rooms() {
                     style={{
                       backgroundColor: resolvedTheme === "light" ? color : 'black',
                     }}
-                    className="bg-card/10 w-96 h-96 border border-border p-1 rounded-[40px] text-forground shadow-sm cursor-pointer bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 bg-blend-overlay"
+                    className="bg-card/10 w-40 h-fit md:w-96 md:h-96 border border-border p-1 rounded-[40px] text-forground shadow-sm cursor-pointer bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 bg-blend-overlay"
                     key={index}
                   >
                     <div
-                      className={`border border-border bg-background h-1/2 p-8 rounded-[36px]`}
+                      className={`border border-border bg-background h-fit p-4 md:p-8 rounded-[36px]`}
                     >
-                      <h2 className="text-2xl">
+                      <h2 className="text-balance md:text-2xl">
                         <span className="font-inter font-semibold">
                           Name :{" "}
                         </span>
-                        {room.name}
+                      <span className="text-xs md:text-inherit">{room.name}</span>
                       </h2>
-                      <p className="text-xl">
+                      <p className="text-sm md:text-xl">
                         <span className="font-inter font-semibold">
                           Description :{" "}
                         </span>
-                        <span className="w-full break-words">
+                        <span className="w-full break-words text-xs md:text-inherit">
                           {room.description}
                         </span>
                       </p>
                     </div>
-                    <div className="p-8 text-xl">
-                      <span className="font-poppins font-bold text-2xl">
+                    <div className="text-sm px-4 py-2 md:p-8 md:text-xl">
+                      <span className="font-poppins font-bold text-balance md:text-2xl">
                         Song Playing :{" "}
                       </span>
-                      {room.songId}
-
+                     <span className="text-xs md:text-inherit">{room.songId}</span>
                     </div>
 
                     {/* <p><Component /></p> */}

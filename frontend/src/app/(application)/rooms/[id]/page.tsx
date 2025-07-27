@@ -70,8 +70,8 @@ export default function RoomComponent({}) {
 
   return (
     <main className={`max-w-4xl mx-auto md:max-w-full`}>
-      <div className="mx-auto p-4 flex flex-col max-w-7xl mb-2">
-        <div className="relative flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="mx-auto p-4 flex flex-col gap-4 md:gap-0 max-w-7xl mb-2">
+        <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-6">
           <div className="lg:col-span-5 h-full">
             <MusicPlayer
               tracks={tracks}
@@ -79,8 +79,8 @@ export default function RoomComponent({}) {
               setCurrentTrack={setCurrenTrack}
             />
           </div>
-          <div className="lg:col-span-7 h-full">
-            <div className="absolute -top-4 right-0 grid grid-cols-2 z-10 border overflow-hidden border-border bg-card rounded-[10px] w-40 h-10">
+          <div className="lg:col-span-7 h-full relative">
+            <div className="absolute -top-3 md:-top-4 right-0 grid grid-cols-2 z-10 border overflow-hidden border-border bg-card rounded-[10px] w-40 h-10">
               <motion.div
                 key={"chat"}
                 className={`flex justify-center items-center gap-2 cursor-pointer p-2 w-full ${

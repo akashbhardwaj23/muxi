@@ -120,7 +120,7 @@ export default function Home() {
             <h1 className="text-forground font-poppins text-7xl font-bold">
               Muxi
             </h1>
-            <p className="mt-4 text-sm text-neutral-700 max-w-xl text-center dark:text-neutral-100">
+            <p className="mt-4 text-neutral-700 md:max-w-xl max-w-[90%] mx-auto text-center dark:text-neutral-100">
               Muxi is a simple and elegant music app designed to help you
               discover, play, and enjoy your favorite tunes. Experience seamless
               music streaming with a beautiful interface and intuitive controls.
@@ -141,10 +141,10 @@ export default function Home() {
         </div>
 
       </div>
-      <div className="w-full max-w-4xl mx-auto mt-10 text-forground h-[30rem]">
+      <div className="w-[90%] md:w-full max-w-xl md:max-w-4xl mx-auto mt-10 text-forground h-72 md:h-[30rem]">
       {currentImage && (
         <div>
-          <div className="w-full h-[30rem] border-2 border-forground p-2">
+          <div className="w-full h-72 md:h-[30rem] border-2 border-forground p-2">
           <AnimatePresence>
             <MotionImage 
           exit={{
@@ -161,7 +161,7 @@ export default function Home() {
         </div>
         
         <div className="flex justify-center items-center mt-2">
-          <div className="flex justify-center gap-10 w-40">
+          <div className="flex justify-center gap-10 w-20 md:w-40">
             <div className="p-3 rounded-full border-2 border-forground cursor-pointer hover:bg-rose-200 dark:hover:bg-neutral-800" onClick={handlePrev}><ArrowBigLeft className="w-8 h-8" /></div>
           <div className="p-3 rounded-full border-2 border-forground cursor-pointer hover:bg-rose-200 dark:hover:bg-neutral-800" onClick={handleNext}><ArrowBigRight className="w-8 h-8" /></div>
           </div>
