@@ -173,7 +173,7 @@ export default function Rooms() {
                 className="w-[80%] cursor-pointer rounded-[12px] shadow-[-2px_5px_20px_-10px_var(--foreground)] bg-gradient-to-r from-sky-400 via-sky-500 to-sky-600 dark:bg-none dark:bg-white"
                 onClick={handleClick}
               >
-                {loading ? <Loader className="h-4" /> : <span>Create</span>}
+                {dataLoading ? <Loader className="h-4" /> : <span>Create</span>}
               </MotionButtonComponent>
             </div>
           </div>
@@ -188,7 +188,7 @@ export default function Rooms() {
                     style={{
                       backgroundColor: resolvedTheme === "light" ? color : 'black',
                     }}
-                    className="bg-card/10 w-40 h-fit md:w-96 md:h-96 border border-border p-1 rounded-[40px] text-forground shadow-sm cursor-pointer bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 bg-blend-overlay"
+                    className="bg-card/10 w-40 h-fit md:w-72 md:h-72 border border-border p-1 rounded-[40px] text-forground shadow-sm cursor-pointer bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 bg-blend-overlay"
                     key={index}
                   >
                     <div
@@ -198,22 +198,22 @@ export default function Rooms() {
                         <span className="font-inter font-semibold">
                           Name :{" "}
                         </span>
-                      <span className="text-xs md:text-inherit">{room.name}</span>
+                      <span className="text-xs md:text-[length:inherit]">{room.name}</span>
                       </h2>
                       <p className="text-sm md:text-xl">
                         <span className="font-inter font-semibold">
                           Description :{" "}
                         </span>
-                        <span className="w-full break-words text-xs md:text-inherit">
+                        <span className="w-full break-words text-xs md:text-[length:inherit]">
                           {room.description}
                         </span>
                       </p>
                     </div>
-                    <div className="text-sm px-4 py-2 md:p-8 md:text-xl">
+                    <div className="text-sm px-4 py-2 md:p-4 md:text-xl">
                       <span className="font-poppins font-bold text-balance md:text-2xl">
                         Song Playing :{" "}
                       </span>
-                     <span className="text-xs md:text-inherit">{room.songId}</span>
+                     <span className="text-xs md:text-[length:inherit]">{room.songId}</span>
                     </div>
 
                     {/* <p><Component /></p> */}

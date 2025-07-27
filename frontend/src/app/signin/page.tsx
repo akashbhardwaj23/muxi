@@ -106,7 +106,7 @@ export default function SignIn() {
   const MotionButtonComponent = motion.create(Button);
 
   return (
-    <div className="flex flex-col relative items-center justify-center h-full md:h-[41rem] gap-10">
+    <div className="flex flex-col relative items-center justify-center md:h-[41rem] gap-10">
       <Toaster />
       <motion.div
         initial={{ y: 20, opacity: 0 }}
@@ -153,7 +153,7 @@ export default function SignIn() {
               ease: "easeInOut",
             }}
             variant={"default"}
-            className="w-[60%] cursor-pointer rounded-[40px] shadow-[-2px_5px_20px_-10px_var(--foreground)] bg-gradient-to-r from-sky-400 via-sky-500 to-sky-600 dark:bg-none dark:bg-white"
+            className="w-[90%] md:w-[60%] cursor-pointer rounded-[40px] shadow-[-2px_5px_20px_-10px_var(--foreground)] bg-gradient-to-r from-sky-400 via-sky-500 to-sky-600 dark:bg-none dark:bg-white"
             onClick={handleSignIn}
           >
             {loading ? <Loader className="top-0 h-4" /> : <span>Sign In</span>}
@@ -222,11 +222,11 @@ export default function SignIn() {
           duration: 0.3,
           ease: "easeInOut",
         }}
-        className="absolute inset-2/6 shadow-2xl bg-sky-600/30 rounded-full blur-3xl -z-[100] h-[20rem] w-[30rem]"
+        className="absolute inset-2/6 shadow-2xl bg-sky-600/30 rounded-full blur-3xl -z-[100] md:w-[30rem]"
       ></motion.div>
 
       <motion.div
-        className="w-[30rem] flex justify-center"
+        className="w-full md:w-[30rem] flex justify-center"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         whileHover={{
@@ -235,7 +235,7 @@ export default function SignIn() {
         transition={{ duration: 0.3 }}
       >
         <Button
-          className="w-1/2 p-4 rounded-[40px] shadow-2xl h-10 relative"
+          className="w-72 md:w-1/2 p-4 rounded-[40px] shadow-2xl h-10 relative"
           onClick={handleGoogleSignIn}
         >
           <IconBrandGoogle /> <span>SignIn Via Google</span>

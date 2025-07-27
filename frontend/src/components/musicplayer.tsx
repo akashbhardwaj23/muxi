@@ -25,7 +25,6 @@ import { TrackType } from "@/config/types";
 import { BorderBeam } from "./magicui/border-beam";
 import Image from "next/image";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
-import { TooltipArrow } from "@radix-ui/react-tooltip";
 
 export default function MusicPlayer({
   tracks,
@@ -374,7 +373,7 @@ export default function MusicPlayer({
 
                 <div className="flex items-center py-2 gap-2">
                   {!isMuted ? (<Volume2 size={20} className="text-muted-foreground" onClick={() => handleMute([0])} />) : (<VolumeX size={20} className="text-muted-foreground" onClick={() => handleUnMute([0.4])} />)}
-                  <div className="relative w-16 h-[5px] bg-muted">
+                  <div className="relative w-12 md:w-16 h-[5px] bg-muted">
                     <div
                       className="absolute h-full bg-primary"
                       style={{ width: `${volume * 100}%` }}

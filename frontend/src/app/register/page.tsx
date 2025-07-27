@@ -28,44 +28,42 @@ export default function Register() {
   const router = useRouter();
 
 
+  const login = useGoogleLogin({
+    onSuccess: (response) => {
+      const user = response
+      setLoading(true)
+      axios
+        .get(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${response.access_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.access_token}`,
+              Accept: "application/json",
+            },
+          }
+        )
+        .then(async (res) => {
+          const data: UserProfileType = res.data
+          const response = await sendSigninRequest(data);
+          const token = response.data.token;
+          const userId = response.data.userId;
+          localStorage.setItem("token", token);
+          localStorage.setItem("userId", userId);
+          setLoading(false)
+          router.push('/')
+          // setUserProfile(res.data);
+        })
+        .catch((err: AxiosError) => {
+          setError(err.message);
+          setLoading(false)
+          setTimeout(() => {
+            setError('')
+          }, 3000)
+        });
+    },
+    onError: (e) => console.log("error is ", e),
+  });
 
-  
-    const login = useGoogleLogin({
-          onSuccess: (response) => {
-              const user = response
-              setLoading(true)
-              axios
-                  .get(
-                      `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${response.access_token}`,
-                      {
-                          headers: {
-                              Authorization: `Bearer ${user.access_token}`,
-                              Accept: "application/json",
-                          },
-                      }
-                  )
-                  .then(async (res) => {
-                      const data:UserProfileType = res.data
-                      const response = await sendSigninRequest(data);
-                      const token = response.data.token;
-                      const userId = response.data.userId;
-                      localStorage.setItem("token", token);
-                      localStorage.setItem("userId", userId);
-                      setLoading(false)
-                      router.push('/')
-                      // setUserProfile(res.data);
-                  })
-                  .catch((err:AxiosError) =>{
-                    setError(err.message);
-                    setLoading(false)
-                    setTimeout(() => {
-                      setError('')
-                    }, 3000)
-                  });
-          },
-          onError: (e) => console.log("error is ", e),
-      });
-  
 
 
   const handleRegister = async () => {
@@ -87,39 +85,38 @@ export default function Register() {
       setLoading(false)
       router.push("/");
     } catch (error) {
-        toast.error("SignUp Process Failed")
+      toast.error("SignUp Process Failed")
       console.log(error);
     }
   };
 
 
 
-  
+
   const handleGoogleSignIn = async () => {
     login();
   }
 
 
-
-   const MotionButtonComponent = motion.create(Button);
+  const MotionButtonComponent = motion.create(Button);
 
   return (
-    <div className="flex flex-col items-center justify-center h-[41rem] gap-10">
+    <div className="flex flex-col items-center justify-center md:h-[41rem] gap-10">
       <Toaster />
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.3 }}
-        className="flex flex-col shadow-2xl bg-background font-poppins relative rounded-[40px] p-6 px-10 w-[40rem] overflow-hidden before:h-10 before:absolute before:bg-conic before:bg-red-700"
+        className="flex flex-col shadow-2xl bg-background font-poppins relative rounded-[40px] p-6 md:px-10 w-[90%] md:w-[40rem] overflow-hidden before:h-10 before:absolute before:bg-conic before:bg-red-700"
       >
-        <div className="text-4xl flex justify-center items-center w-full mb-4 font-bold text-transparent bg-clip-text bg-gradient-to-br from-sky-400 to-sky-600">
+        <div className="text-2xl md:text-4xl flex justify-center items-center w-full mb-4 font-bold text-transparent bg-clip-text bg-gradient-to-br from-sky-400 to-sky-600">
           <h1>Register</h1>
         </div>
 
         <div className="flex flex-col gap-4 mb-4">
           <Label htmlFor="email">Email</Label>
           <Input
-          id="email"
+            id="email"
             placeholder="Enter you'r email"
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -128,7 +125,7 @@ export default function Register() {
         <div className="flex flex-col gap-4 mb-4">
           <Label htmlFor="name">Name</Label>
           <Input
-          id="name"
+            id="name"
             placeholder="Enter you'r name"
             onChange={(e) => setName(e.target.value)}
           />
@@ -137,30 +134,39 @@ export default function Register() {
         <div className="flex flex-col gap-4 mb-8">
           <Label htmlFor="password">Password</Label>
           <Input
-          id={"password"}
+            id={"password"}
             placeholder="Enter you'r password"
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
 
+
+
+
+        {error && (
+          <div className="flex items-center mb-4">{error}</div>
+        )}
+
+
+
         <div className="flex justify-center w-full mb-4">
-                 <MotionButtonComponent
-                   whileHover={{
-                     width: "100%",
-                   }}
-                   transition={{
-                     duration: 0.8,
-                     type : "spring",
-              damping : 10,
-                     ease: "easeInOut",
-                   }}
-                   variant={"default"}
-                   className="w-[60%] cursor-pointer rounded-[40px] shadow-[-2px_5px_20px_-10px_var(--foreground)] bg-gradient-to-r from-sky-400 via-sky-500 to-sky-600 dark:bg-none dark:bg-white"
-                   onClick={handleRegister}
-                 >
-                   {loading ? <Loader className="top-0 h-4" /> : <span>Register</span>}
-                 </MotionButtonComponent>
-               </div>
+          <MotionButtonComponent
+            whileHover={{
+              width: "100%",
+            }}
+            transition={{
+              duration: 0.8,
+              type: "spring",
+              damping: 10,
+              ease: "easeInOut",
+            }}
+            variant={"default"}
+            className="w-[60%] cursor-pointer rounded-[40px] shadow-[-2px_5px_20px_-10px_var(--foreground)] bg-gradient-to-r from-sky-400 via-sky-500 to-sky-600 dark:bg-none dark:bg-white"
+            onClick={handleRegister}
+          >
+            {loading ? <Loader className="top-0 h-4" /> : <span>Register</span>}
+          </MotionButtonComponent>
+        </div>
 
         <div className="text-neutral-600 text-sm flex gap-4">
           <p className="relative">
@@ -226,11 +232,11 @@ export default function Register() {
           duration: 0.3,
           ease: "easeInOut",
         }}
-        className="absolute inset-2/6 shadow-2xl bg-sky-600/30 rounded-full blur-3xl -z-[100] h-[20rem] w-[30rem]"
+        className="absolute inset-2/6 shadow-2xl bg-sky-600/30 rounded-full blur-3xl -z-[100] mb-10 md:w-[30rem]"
       ></motion.div>
 
       <motion.div
-        className="w-[30rem] flex justify-center"
+        className="w-full md:w-[30rem] flex justify-center"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         whileHover={{
@@ -239,7 +245,7 @@ export default function Register() {
         transition={{ duration: 0.3 }}
       >
         <Button
-          className="w-1/2 p-4 rounded-[40px] shadow-2xl h-10 relative"
+          className="w-72 md:w-1/2 p-4 rounded-[40px] shadow-2xl h-10 relative"
           onClick={handleGoogleSignIn}
         >
           <IconBrandGoogle /> <span>SignIn Via Google</span>
