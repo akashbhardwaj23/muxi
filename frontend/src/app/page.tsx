@@ -9,7 +9,7 @@ import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import {AnimatePresence, motion, useAnimate, usePresence} from "motion/react"
+import {AnimatePresence, motion} from "motion/react"
 
 export default function Home() {
   const [href, setHref] = useState('/signin')

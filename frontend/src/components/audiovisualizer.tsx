@@ -31,7 +31,6 @@ export default function Component() {
     return () => clearInterval(interval)
   }, [])
 
-  const maxHeight = 250
 
   return (
     <div className="flex flex-col items-center justify-center bg-black p-8">

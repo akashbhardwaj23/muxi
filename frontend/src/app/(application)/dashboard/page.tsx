@@ -8,8 +8,7 @@ import { IconBubbleText } from "@tabler/icons-react";
 import { MusicIcon } from "lucide-react";
 import {AnimatePresence, motion} from "motion/react"
 import { Model } from "@/components/model";
-import ChatComponent from "@/components/chats";
-
+// import ChatComponent from "@/components/chats";
 
 export default function Dashboard() {
   const { tracks, currentTrack, setCurrenTrack, error } = useMusicContext();

@@ -8,16 +8,12 @@ import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { RoomType } from "@/config/types";
 import Loader from "@/components/loader";
-import { BorderBeam } from "@/components/magicui/border-beam";
 import { toast, Toaster } from "sonner";
 import { useMusicContext } from "@/context/provider/musiccontext";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { selectRandomColor } from "@/lib/color";
 import { ShineBorder } from "@/components/magicui/shine-border";
-import { AudioVisualizer } from "@/components/effects/audiovisualizer";
-import { AudioSpectrum } from "@/components/effects/audiospectrum";
-import Component from "@/components/audiovisualizer";
 import { motion } from "motion/react";
 
 interface DataType {
