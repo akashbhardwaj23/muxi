@@ -9,6 +9,7 @@ import { serverTimestamp } from "firebase/database";
 import { Message, Room } from "@/config/types";
 import { useUser } from "@/context/provider/userprovider";
 import { IconBubble } from "@tabler/icons-react";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
 type MessageFirestore = {
   id: number;
@@ -124,174 +125,169 @@ export default function ChatComponent({ room }: { room: Room }) {
   };
 
   return (
-    <div className="h-[37.6rem]">
+    <div className="h-[38rem]">
       <motion.div
-      initial={{
-        opacity: 0,
-      }}
-      animate={{
-        opacity: 1,
-      }}
-      transition={{
-        duration: 0.7,
-        ease: "easeInOut",
-      }}
-      className="h-[90%] border border-border bg-card shadow-sm rounded-[40px]"
-    >
-      <div className="flex flex-col h-full">
-        <div className="p-4 border-b border-border">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="size-8 bg-[var(--primary)] text-[var(--primary-foreground)] rounded-full flex items-center justify-center">
-                <IconBubble className="size-4" />
-              </div>
+        initial={{
+          opacity: 0,
+        }}
+        animate={{
+          opacity: 1,
+        }}
+        transition={{
+          duration: 0.7,
+          ease: "easeInOut",
+        }}
+        className="h-[90%] border border-border bg-card shadow-sm rounded-[40px]"
+      >
+        <div className="flex flex-col h-full">
+          <div className="p-4 border-b border-border">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="size-8 bg-[var(--primary)] text-[var(--primary-foreground)] rounded-full flex items-center justify-center">
+                  <IconBubble className="size-4" />
+                </div>
 
-              <div>
-                <h2 className="text-base font-medium text-foreground">
-                  {room.name}
-                </h2>
-                <p className="text-xs text-[var(--muted-foreground)]">{room.users.length}</p>
+                <div>
+                  <h2 className="text-base font-medium text-foreground">
+                    {room.name}
+                  </h2>
+                  <p className="text-xs text-[var(--muted-foreground)]">{room.users.length}</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="flex-1 p-4 overflow-auto">
-          <div className="space-y-6">
-            <div className="flex items-center justify-center">
-              {messages.length > 0 && (
-                <div className="bg-muted/30 text-muted-foreground text-xs px-3 py-1">
-                  {formatDate(new Date(messages[0].timestamp))}
-                </div>
-              )}
-            </div>
+          <div className="flex-1 p-4 overflow-auto">
+            <div className="space-y-6">
+              <div className="flex items-center justify-center">
+                {messages.length > 0 && (
+                  <div className="bg-muted/30 text-muted-foreground text-xs px-3 py-1">
+                    {formatDate(new Date(messages[0].timestamp))}
+                  </div>
+                )}
+              </div>
 
-            <AnimatePresence initial={false}>
-              {messages &&
-                messages.map((message, index) => {
-                  const showDateSeparator =
-                    index > 0 &&
-                    formatDate(new Date(message.timestamp)) !==
+              <AnimatePresence initial={false}>
+                {messages &&
+                  messages.map((message, index) => {
+                    const showDateSeparator =
+                      index > 0 &&
+                      formatDate(new Date(message.timestamp)) !==
                       formatDate(new Date(messages[index - 1].timestamp));
 
-                  return (
-                    <div key={message.id}>
-                      {showDateSeparator && (
-                        <div className="flex items-center justify-center my-4">
-                          <div className="bg-[var(--muted)]/30 text-[var(--muted-foreground)] text-xs px-3 py-1">
-                            {formatDate(new Date(message.timestamp))}
+                    return (
+                      <div key={message.id}>
+                        {showDateSeparator && (
+                          <div className="flex items-center justify-center my-4">
+                            <div className="bg-[var(--muted)]/30 text-[var(--muted-foreground)] text-xs px-3 py-1">
+                              {formatDate(new Date(message.timestamp))}
+                            </div>
                           </div>
-                        </div>
-                      )}
+                        )}
 
-                      <motion.div
-                        initial={{ opacity: 0, y: 5 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className={`flex ${
-                          message.sender === userId
-                            ? "justify-end"
-                            : "justify-start"
-                        }`}
-                      >
-                        <div
-                          className={`flex gap-3 max-w-[80%] ${
-                            message.sender === userId && "flex-row-reverse"
-                          }`}
+                        <motion.div
+                          initial={{ opacity: 0, y: 5 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className={`flex ${message.sender === userId
+                              ? "justify-end"
+                              : "justify-start"
+                            }`}
                         >
-                          {message.sender !== userId && (
-                            <div className="h-20 flex justify-center items-center">
-                              <div className="size-8 bg-primary text-primary-foreground px-2 rounded-full flex items-center justify-center">
-                              <User className="size-4" />
-                            </div>
-                            </div>
-                          )}
-
-                          <div className="space-y-1">
-                            <div className="text-xs">{message.senderName}</div>
-                            <div
-                              className={`text-center px-4 py-3 rounded-lg ${
-                                message.sender === userId
-                                  ? "bg-primary text-primary-foreground"
-                                  : "bg-secondary text-secondary-foreground border border-border"
+                          <div
+                            className={`flex gap-3 max-w-[80%] ${message.sender === userId && "flex-row-reverse"
                               }`}
-                            >
-                              <p className="text-sm">{message.text}</p>
+                          >
+                            {message.sender !== userId && (
+                              <div className="h-20 flex justify-center items-center">
+                                <div className="size-8 bg-primary text-primary-foreground px-2 rounded-full flex items-center justify-center">
+                                  <User className="size-4" />
+                                </div>
+                              </div>
+                            )}
 
-                              {message.attachments &&
-                                message.attachments.length > 0 && (
-                                  <div className="mt-2 space-y-2">
-                                    {message.attachments.map(
-                                      (attachment, i) => (
-                                        <div
-                                          key={i}
-                                          className="p-2 bg-background/50 border border-border flex items-center gap-2"
-                                        >
-                                          <span className="text-xs truncate">
-                                            {attachment.name}
-                                          </span>
+                            <div className="space-y-1">
+                              <div className="text-xs">{message.senderName}</div>
+                              <div
+                                className={`text-center px-4 py-3 rounded-lg ${message.sender === userId
+                                    ? "bg-primary text-primary-foreground"
+                                    : "bg-secondary text-secondary-foreground border border-border"
+                                  }`}
+                              >
+                                <p className="text-sm">{message.text}</p>
 
-                                          <button className="h-6 px-2 ml-auto text-xs bg-transparent hover:bg-accent/50 rounded-md">
-                                            Play
-                                          </button>
+                                {message.attachments &&
+                                  message.attachments.length > 0 && (
+                                    <div className="mt-2 space-y-2">
+                                      {message.attachments.map(
+                                        (attachment, i) => (
+                                          <div
+                                            key={i}
+                                            className="p-2 bg-background/50 border border-border flex items-center gap-2"
+                                          >
+                                            <span className="text-xs truncate">
+                                              {attachment.name}
+                                            </span>
+
+                                            <button className="h-6 px-2 ml-auto text-xs bg-transparent hover:bg-accent rounded-[10px]">
+                                              Play
+                                            </button>
+                                          </div>
+                                        )
+                                      )}
+                                    </div>
+                                  )}
+                              </div>
+
+                              <div
+                                className={`flex items-center text-xs ${message.sender === userId
+                                    ? "justify-end"
+                                    : "justify-start"
+                                  }`}
+                              >
+                                <span className="text-muted-foreground">
+                                  {formatTime(new Date(message.timestamp))}
+                                </span>
+
+                                {message.sender === userId && message.status && (
+                                  <span className="ml-2">
+                                    {renderStatus(message.status)}
+                                  </span>
+                                )}
+                              </div>
+
+                              {message.reactions &&
+                                message.reactions.length > 0 && (
+                                  <div
+                                    className={`flex ${message.sender === userId
+                                        ? "justify-end"
+                                        : "justify-start"
+                                      }`}
+                                  >
+                                    <div className="flex -space-x-1 bg-muted/30 px-2 py-0.5 border border-border">
+                                      {message.reactions.map((reaction, i) => (
+                                        <div key={i} className="text-sm">
+                                          {reaction}
                                         </div>
-                                      )
-                                    )}
+                                      ))}
+                                    </div>
                                   </div>
                                 )}
                             </div>
-
-                            <div
-                              className={`flex items-center text-xs ${
-                                message.sender === userId
-                                  ? "justify-end"
-                                  : "justify-start"
-                              }`}
-                            >
-                              <span className="text-muted-foreground">
-                                {formatTime(new Date(message.timestamp))}
-                              </span>
-
-                              {message.sender === userId && message.status && (
-                                <span className="ml-2">
-                                  {renderStatus(message.status)}
-                                </span>
-                              )}
-                            </div>
-
-                            {message.reactions &&
-                              message.reactions.length > 0 && (
-                                <div
-                                  className={`flex ${
-                                    message.sender === userId
-                                      ? "justify-end"
-                                      : "justify-start"
-                                  }`}
-                                >
-                                  <div className="flex -space-x-1 bg-muted/30 px-2 py-0.5 border border-border">
-                                    {message.reactions.map((reaction, i) => (
-                                      <div key={i} className="text-sm">
-                                        {reaction}
-                                      </div>
-                                    ))}
-                                  </div>
+                            {message.sender === userId && (
+                              <div className="h-20 flex items-center justify-center">
+                                <div className="size-8 bg-secondary text-secondary-foreground rounded-full flex items-center justify-center">
+                                  <User className="size-4" />
                                 </div>
-                              )}
-                          </div>
-                          {message.sender === userId && (
-                            <div className="h-20 flex items-center justify-center">
-                              <div className="size-8 bg-secondary text-secondary-foreground rounded-full flex items-center justify-center">
-                                <User className="size-4" />
                               </div>
-                            </div>
-                          )}
-                        </div>
-                      </motion.div>
-                    </div>
-                  );
-                })}
-            </AnimatePresence>
-            {/* 
+                            )}
+                          </div>
+                        </motion.div>
+                      </div>
+                    );
+                  })}
+              </AnimatePresence>
+              {/* 
             {isTyping && (
               <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className="flex justify-start">
                 <div className="flex gap-3">
@@ -334,73 +330,84 @@ export default function ChatComponent({ room }: { room: Room }) {
               </motion.div>
             )} */}
 
-            <div ref={messagesEndRef} />
+              <div ref={messagesEndRef} />
+            </div>
+          </div>
+
+          <div className="p-4 border-t border-border w-[60%] mx-auto md:w-full">
+            <form onSubmit={handleSendMessage} className="space-y-3">
+              <div className="flex items-center gap-2">
+                <Tooltip>
+                  <TooltipTrigger>                <button
+                  type="button"
+                  className="flex items-center justify-center size-10 text-muted-foreground hover:text-forground hover:bg-accent rounded-[10px]"
+                >
+                  <Paperclip size={18} />
+                </button>
+                </TooltipTrigger>
+                <TooltipContent className="bg-purple-600 rounded-[10px]">
+                  <p>Currently Unavailable</p>
+                </TooltipContent>
+                </Tooltip>
+                <input
+                  value={newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  placeholder="Type your message..."
+                  className="flex-1 bg-muted/30 border border-border text-forground placeholder:text-muted-foreground focus:ring-1 focus:ring-purple-600 outline-none px-3 py-2 rounded-[10px]"
+                />
+
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+                    className="flex items-center justify-center size-10 text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--accent)] rounded-[10px]"
+                  >
+                    <Smile size={18} />
+                  </button>
+
+                  {showEmojiPicker && (
+                    <div className="absolute bottom-full right-0 mb-2 w-80 p-4 bg-card border border-border rounded-[10px] shadow-md">
+                      <div className="grid grid-cols-8 gap-1">
+                        {emojis.map((emoji, index) => (
+                          <button
+                            key={index}
+                            className="p-1.5 text-xl hover:bg-accent/50 transition-colors rounded-[10px]"
+                            onClick={() => handleEmojiSelect(emoji)}
+                            type="button"
+                          >
+                            {emoji}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <Tooltip>
+                  <TooltipTrigger> <button
+                    type="button"
+                    className="flex items-center justify-center size-10 text-muted-foreground hover:text-forground hover:bg-accent rounded-[10px]"
+                  >
+                    <Mic size={18} />
+                  </button>
+                  </TooltipTrigger>
+
+                  <TooltipContent className="bg-purple-600 rounded-[10px]">
+                    <p>Currently Unavailable</p>
+                  </TooltipContent>
+                </Tooltip>
+                <button
+                  type="submit"
+                  className="bg-gradient-to-b from-[#b12aff] to-[#b12aff]/60 hover:bg-gradient-to-b hover:from-sky-300s hover:to-rose-300 text-primary-foreground cursor-pointer px-4 py-2 rounded-[10px] flex items-center dark:bg-blue-600 dark:text-white"
+                >
+                  <Send size={16} className="mr-2" />
+                  <span>Send</span>
+                </button>
+              </div>
+            </form>
           </div>
         </div>
-
-        <div className="p-4 border-t border-border">
-          <form onSubmit={handleSendMessage} className="space-y-3">
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                className="flex items-center justify-center size-10 text-muted-foreground hover:text-forground hover:bg-accent/50 rounded-md"
-              >
-                <Paperclip size={18} />
-              </button>
-
-              <input
-                value={newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
-                placeholder="Type your message..."
-                className="flex-1 bg-muted/30 border border-border text-forground placeholder:text-muted-foreground focus:ring-1 focus:ring-primary/50 outline-none px-3 py-2 rounded-md"
-              />
-
-              <div className="relative">
-                <button
-                  type="button"
-                  onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                  className="flex items-center justify-center size-10 text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--accent)]/50 rounded-md"
-                >
-                  <Smile size={18} />
-                </button>
-
-                {showEmojiPicker && (
-                  <div className="absolute bottom-full right-0 mb-2 w-80 p-4 bg-card border border-border rounded-md shadow-md">
-                    <div className="grid grid-cols-8 gap-1">
-                      {emojis.map((emoji, index) => (
-                        <button
-                          key={index}
-                          className="p-1.5 text-xl hover:bg-accent/50 transition-colors rounded-md"
-                          onClick={() => handleEmojiSelect(emoji)}
-                          type="button"
-                        >
-                          {emoji}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <button
-                type="button"
-                className="flex items-center justify-center size-10 text-muted-foreground hover:text-forground hover:bg-accent/50 rounded-md"
-              >
-                <Mic size={18} />
-              </button>
-
-              <button
-                type="submit"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground cursor-pointer px-4 py-2 rounded-md flex items-center dark:bg-blue-600 dark:text-white"
-              >
-                <Send size={16} className="mr-2" />
-                <span>Send</span>
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </motion.div>
+      </motion.div>
     </div>
   );
 }

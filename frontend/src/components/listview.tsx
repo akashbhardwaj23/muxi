@@ -17,21 +17,21 @@ export default function ListView({
 }: {
   tracks: TrackType[];
   setCurrenTrack: Dispatch<SetStateAction<TrackType | undefined>>;
-  setModelOpen : Dispatch<SetStateAction<boolean>>
+  setModelOpen: Dispatch<SetStateAction<boolean>>
 }) {
   return (
     <div className="h-[37.6rem]"><motion.div
-    initial={{
-      opacity : 0
-    }}
-    animate={{
-      opacity : 1
-    }}
-    transition={{
-      duration : 0.7,
-      ease : "easeInOut"
-    }}
-    className="h-[90%] relative border border-border bg-card shadow-sm rounded-[40px]">
+      initial={{
+        opacity: 0
+      }}
+      animate={{
+        opacity: 1
+      }}
+      transition={{
+        duration: 0.7,
+        ease: "easeInOut"
+      }}
+      className="h-[90%] relative border border-border bg-card shadow-sm rounded-[40px]">
       <div className="p-10 grid grid-cols-3 gap-4">
         <AnimatePresence>
           {tracks &&
@@ -53,18 +53,17 @@ export default function ListView({
                     width={600}
                     height={600}
                     alt={track.songName}
-                    className="w-8 h-8 rounded-[12px] object-cover"
+                    className="w-8 h-8 rounded-[12px] object-contain"
                   />{" "}
-                  <span> {track.songName}</span>
+                  <span>{track.songName.slice(0,15)}...</span>
                 </div>
               </motion.div>
             ))}
         </AnimatePresence>
       </div>
-      <TooltipProvider
-      >
-        <Tooltip>
-          <div className="w-full p-8 absolute flex justify-end left-0 bottom-2">
+
+      <Tooltip>
+        <div className="w-full p-8 absolute flex justify-end left-0 bottom-2">
           <TooltipTrigger>
             <div className="cursor-pointer" onClick={() => setModelOpen(true)}>
               <IconCircleDashedPlus className="w-10 h-10 text-forground backdrop-blur-md" />
@@ -73,10 +72,9 @@ export default function ListView({
           <TooltipContent>
             <p>Add New Songs</p>
           </TooltipContent>
-          </div>
-        </Tooltip>
-      </TooltipProvider>
-
-    </motion.div></div>
+        </div>
+      </Tooltip>s
+    </motion.div>
+    </div>
   );
 }

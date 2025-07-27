@@ -29,6 +29,7 @@ export default function SignIn() {
   const login = useGoogleLogin({
         onSuccess: (response) => {
             const user = response
+            setLoading(true)
             axios
                 .get(
                     `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${response.access_token}`,
@@ -46,11 +47,13 @@ export default function SignIn() {
                     const userId = response.data.userId;
                     localStorage.setItem("token", token);
                     localStorage.setItem("userId", userId);
+                    setLoading(false)
                     router.push('/')
                     // setUserProfile(res.data);
                 })
                 .catch((err:AxiosError) =>{
                   setError(err.message);
+                  setLoading(false)
                   setTimeout(() => {
                     setError('')
                   }, 3000)

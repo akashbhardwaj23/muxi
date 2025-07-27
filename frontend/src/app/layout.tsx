@@ -44,7 +44,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${poppins.className} ${inter.className} bg-gradient-to-br from-blue-300/90 via-white to-rose-300 bg-no-repeat dark:bg-none dark:bg-background antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${poppins.className} ${inter.className} bg-gradient-to-br from-blue-300/90 via-white to-rose-300 bg-no-repeat dark:bg-none dark:bg-background min-h-screen antialiased`}
       >
         <ThemeLayout>
           {/* <AuthProvider> */}

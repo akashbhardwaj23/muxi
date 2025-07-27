@@ -70,7 +70,7 @@ export default function RoomComponent({}) {
 
   return (
     <main className={`max-w-4xl mx-auto md:max-w-full`}>
-      <div className="mx-auto px-4 py-6 flex flex-col max-w-7xl mb-2">
+      <div className="mx-auto p-4 flex flex-col max-w-7xl mb-2">
         <div className="relative flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div className="lg:col-span-5 h-full">
             <MusicPlayer
@@ -105,7 +105,7 @@ export default function RoomComponent({}) {
               </motion.div>
             </div>
             {tab === "chat" ? (
-              <div>
+              <div className="h-full">
                 <ChatComponent room={room} />
               </div>
             ) : (

@@ -15,14 +15,17 @@ import {
   SkipBack,
   SkipForward,
   Volume2,
-  Heart,
+  // Heart,
   Repeat,
   Shuffle,
+  VolumeX,
 } from "lucide-react";
 import { AudioSpectrum } from "@/components/effects/audiospectrum";
 import { TrackType } from "@/config/types";
 import { BorderBeam } from "./magicui/border-beam";
 import Image from "next/image";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import { TooltipArrow } from "@radix-ui/react-tooltip";
 
 export default function MusicPlayer({
   tracks,
@@ -40,6 +43,7 @@ export default function MusicPlayer({
   // const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isMuted, setIsMuted] = useState(false)
   const visualizerControls = useAnimation();
 
   const nextTrack = useCallback(() => {
@@ -210,6 +214,19 @@ export default function MusicPlayer({
     }
   };
 
+  const handleMute = (value: number[]) => {
+    setIsMuted(true)
+    handleVolumeChange(value)
+  }
+  
+
+
+  const handleUnMute = (value: number[]) => {
+    setIsMuted(false)
+
+    handleVolumeChange(value)
+  }
+
   const handleVolumeChange = (value: number[]) => {
     const newVolume = value[0];
     setVolume(newVolume);
@@ -290,17 +307,17 @@ export default function MusicPlayer({
         </div>
 
         <div className="p-4 border-t border-border bg-card">
-          <div className="space-y-3">
+          <div className="space-y-2">
             <div className="flex items-center justify-between text-xs text-muted-foreground">
               <span>{formatTime(currentTime)}</span>
               <span>{isLoaded ? formatTime(duration) : "--:--"}</span>
             </div>
 
-            <div className="relative h-1">
+            <div className="relative h-1 mb-4">
               {isLoaded ? (
-                <div className="relative w-full h-1 bg-muted rounded-full">
+                <div className="relative w-full h-1.5 bg-muted">
                   <div
-                    className="absolute h-full bg-primary rounded-full"
+                    className="absolute h-full bg-[#b12aff]"
                     style={{ width: `${(currentTime / duration) * 100}%` }}
                   ></div>
                   <input
@@ -316,7 +333,7 @@ export default function MusicPlayer({
                   />
                 </div>
               ) : (
-                <div className="w-full h-1 bg-muted rounded-full overflow-hidden">
+                <div className="w-full h-1 bg-accent overflow-hidden">
                   <motion.div
                     animate={{
                       x: ["-100%", "100%"],
@@ -335,19 +352,33 @@ export default function MusicPlayer({
 
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <button className="flex items-center justify-center size-8 text-muted-foreground hover:text-forground hover:bg-accent/50 rounded-md">
+               <Tooltip>
+                <TooltipTrigger>
+                 <button className="flex items-center justify-center size-8 backdrop-blur-2xl text-muted-foreground hover:text-forground hover:bg-accent rounded-md">
                   <Shuffle size={16} />
                 </button>
-
-                <button className="flex items-center justify-center size-8 text-muted-foreground hover:text-forground hover:bg-accent/50 rounded-md">
+                </TooltipTrigger>
+                <TooltipContent className="bg-purple-600 rounded-[10px]">
+                  <p>Building In Progress</p>
+                </TooltipContent>
+               
+              </Tooltip>
+              <Tooltip>
+               <TooltipTrigger>
+                 <button className="flex items-center justify-center size-8 backdrop-blur-2xl text-muted-foreground hover:text-forground hover:bg-accent rounded-[10px]">
                   <Repeat size={16} />
                 </button>
+               </TooltipTrigger>
+               <TooltipContent className="bg-purple-600 rounded-[10px]">
+                <p>Building In Progress</p>
+               </TooltipContent>
+                </Tooltip>
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 <button
                   onClick={handlePrevTrack}
-                  className="flex items-center justify-center size-10 text-forground hover:text-forground hover:bg-accent/50 rounded-md"
+                  className="flex items-center justify-center size-10 backdrop-blur-2xl text-forground hover:text-forground hover:bg-accent rounded-[10px]"
                 >
                   <SkipBack size={20} />
                 </button>
@@ -355,13 +386,13 @@ export default function MusicPlayer({
                 <motion.div whileTap={{ scale: 0.95 }}>
                   <button
                     onClick={handlePlayPause}
-                    className="rounded-full relative size-12 p-0 bg-primary hover:bg-primary/90 text-primary-foreground flex items-center justify-center"
+                    className="rounded-full relative backdrop-blur-2xl size-12 p-0 bg-clip-padding backdrop-filter bg-opacity-0 backdrop-saturate-100 backdrop-contrast-100 bg-gradient-to-b from-[#b12aff] to-[#b12aff]/60 hover:bg-gradient-to-b hover:from-sky-300s hover:to-rose-300 text-primary-foreground dark:bg-blue-600 dark:text-white flex items-center justify-center"
                   >
                     {isPlaying ? (
                       <Pause size={20} />
                     ) : (
                       <>
-                        <Play size={20} className="ml-1" />
+                        <Play size={20} className="ml-[2px]" />
                         <BorderBeam />
                       </>
                     )}
@@ -370,14 +401,14 @@ export default function MusicPlayer({
 
                 <button
                   onClick={handleNextTrack}
-                  className="flex items-center justify-center size-10 text-forground hover:text-forground hover:bg-accent/50 rounded-md"
+                  className="flex items-center justify-center size-10 backdrop-blur-2xl text-forground hover:text-forground hover:bg-accent rounded-[10px]"
                 >
                   <SkipForward size={20} />
                 </button>
               </div>
 
               <div className="flex items-center gap-2">
-                <button
+                {/* <button
                   className={`flex items-center justify-center size-8 hover:bg-accent/50 rounded-md ${
                     currentTrack.favorite
                       ? "text-[var(--destructive)]"
@@ -388,13 +419,13 @@ export default function MusicPlayer({
                     size={16}
                     fill={currentTrack.favorite ? "currentColor" : "none"}
                   />
-                </button>
+                </button> */}
 
-                <div className="flex items-center py-2 gap-1">
-                  <Volume2 size={20} className="text-muted-foreground" />
-                  <div className="relative w-16 h-1 bg-muted rounded-full">
+                <div className="flex items-center py-2 gap-2">
+                  {!isMuted ? (<Volume2 size={20} className="text-muted-foreground" onClick={() => handleMute([0])} />) : (<VolumeX size={20} className="text-muted-foreground" onClick={() => handleUnMute([0.4])}  />)}
+                  <div className="relative w-16 h-[5px] bg-muted">
                     <div
-                      className="absolute h-full bg-primary rounded-full"
+                      className="absolute h-full bg-primary"
                       style={{ width: `${volume * 100}%` }}
                     ></div>
                     <input

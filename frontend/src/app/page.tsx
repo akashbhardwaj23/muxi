@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import {AnimatePresence, motion} from "motion/react"
+import Loader from "@/components/loader";
 
 export default function Home() {
   const [href, setHref] = useState('/signin')
@@ -78,7 +79,6 @@ export default function Home() {
     })
   }
 
-  console.log("currentImages ",currentImage)
 
   if(loading){
     return <div
@@ -93,7 +93,7 @@ export default function Home() {
         }}
     className="bg-gradient-to-br from-blue-300/90 via-white to-rose-300 h-[41rem] w-full dark:bg-none dark:bg-background">
         <div className="flex justify-center items-center h-full">
-          Loading....
+          <Loader />
         </div>
     </div>
   }

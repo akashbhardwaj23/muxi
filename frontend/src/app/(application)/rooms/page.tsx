@@ -15,6 +15,7 @@ import Link from "next/link";
 import { selectRandomColor } from "@/lib/color";
 import { ShineBorder } from "@/components/magicui/shine-border";
 import { motion } from "motion/react";
+import { useTheme } from "next-themes";
 
 interface DataType {
   name: string;
@@ -31,6 +32,7 @@ export default function Rooms() {
   const [dataLoading, setDataLoading] = useState(false);
   const [error, setError] = useState("");
   const { tracks } = useMusicContext();
+  const { resolvedTheme } = useTheme()
 
   const color = selectRandomColor();
 
@@ -117,23 +119,23 @@ export default function Rooms() {
 
   return (
     <div
-      style={{
-        maskImage: `linear-gradient(
-            to bottom, 
-            rgba(0, 0, 0, 0) 0%,
-            rgba(0, 0, 0, 1) 10%,
-            rgba(0, 0, 0, 1) 90%
-            )`,
-      }}
-      className="bg-gradient-to-br from-blue-300/90 via-white to-rose-300 h-full w-full pb-40 dark:bg-none dark:bg-background"
+      // style={{
+      //   maskImage: `linear-gradient(
+      //       to bottom, 
+      //       rgba(0, 0, 0, 0) 0%,
+      //       rgba(0, 0, 0, 1) 10%,
+      //       rgba(0, 0, 0, 1) 90%
+      //       )`,
+      // }}
+      className="h-full w-full pb-40 dark:bg-none dark:bg-background"
     >
-      <div className="max-w-4xl mx-auto min-h-screen flex flex-col items-center pt-10 gap-10">
+      <div className="max-w-4xl mx-auto min-h-screen flex flex-col items-center gap-10">
         <Toaster />
-        <div className="p-10 bg-card border border-border relative w-[60%] z-50 rounded-[40px] dark:bg-transparent ">
+        <div className="p-10 bg-card border border-border dark:border-forground relative w-[60%] z-50 rounded-[40px] dark:bg-transparent ">
           <ShineBorder shineColor={["#A07CFE", "#FE8FB5", "#FFBE7B"]} />
           <div className="flex flex-col items-center w-full gap-10">
             <h1 className="text-4xl font-poppins font-bold">
-              {dataLoading ? <Loader /> : <span>Create Room</span>}
+              <span>Create Room</span>
             </h1>
             <div className="w-full flex flex-col gap-2">
               <Label>Name</Label>
@@ -170,26 +172,26 @@ export default function Rooms() {
                 className="w-[80%] cursor-pointer rounded-[12px] shadow-[-2px_5px_20px_-10px_var(--foreground)] bg-gradient-to-r from-sky-400 via-sky-500 to-sky-600 dark:bg-none dark:bg-white"
                 onClick={handleClick}
               >
-                {loading ? <Loader className="top-0 h-4" /> : <span>Create</span>}
+                {loading ? <Loader className="h-4" /> : <span>Create</span>}
               </MotionButtonComponent>
             </div>
           </div>
         </div>
-        <div className="mb-10">
-          <h2 className="text-2xl font-poppins font-bold mb-4">Rooms</h2>
+        <div className="mb-10 p-4">
+          <h2 className="text-4xl font-poppins font-bold mb-4">Rooms</h2>
           <div className="grid grid-cols-2 gap-4 w-full">
             {rooms.length > 0 &&
               rooms.map((room, index) => (
                 <Link href={`/rooms/${room.id}`} key={index}>
                   <div
                     style={{
-                      backgroundColor: color,
+                      backgroundColor: resolvedTheme === "light" ? color : 'black',
                     }}
-                    className="bg-card w-96 h-96 border border-border p-1 rounded-[40px] text-black shadow-sm cursor-pointer"
+                    className="bg-card/10 w-96 h-96 border border-border p-1 rounded-[40px] text-forground shadow-sm cursor-pointer bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 bg-blend-overlay"
                     key={index}
                   >
                     <div
-                      className={`border border-border h-1/2 bg-white p-8 rounded-[36px]`}
+                      className={`border border-border bg-background h-1/2 p-8 rounded-[36px]`}
                     >
                       <h2 className="text-2xl">
                         <span className="font-inter font-semibold">
@@ -220,7 +222,7 @@ export default function Rooms() {
               ))}
 
             {rooms.length === 0 && (
-              <div className="w-full bg-white">No Room Found</div>
+              <div className="w-96">No Room Found</div>
             )}
           </div>
         </div>

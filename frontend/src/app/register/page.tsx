@@ -7,22 +7,66 @@ import Link from "next/link";
 import { useState } from "react";
 import { Toaster, toast } from "sonner";
 import { motion } from "motion/react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { BACKEND_URL } from "@/config/config";
 import { useRouter } from "next/navigation";
 import Loader from "@/components/loader";
 import { BorderBeam } from "@/components/magicui/border-beam";
 import { IconBrandGoogle } from "@tabler/icons-react";
+import { useGoogleLogin } from "@react-oauth/google";
+import { UserProfileType } from "@/config/types";
+import { sendSigninRequest } from "@/google/user";
 
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-
   const [hover, setHover] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('')
 
   const router = useRouter();
+
+
+
+  
+    const login = useGoogleLogin({
+          onSuccess: (response) => {
+              const user = response
+              setLoading(true)
+              axios
+                  .get(
+                      `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${response.access_token}`,
+                      {
+                          headers: {
+                              Authorization: `Bearer ${user.access_token}`,
+                              Accept: "application/json",
+                          },
+                      }
+                  )
+                  .then(async (res) => {
+                      const data:UserProfileType = res.data
+                      const response = await sendSigninRequest(data);
+                      const token = response.data.token;
+                      const userId = response.data.userId;
+                      localStorage.setItem("token", token);
+                      localStorage.setItem("userId", userId);
+                      setLoading(false)
+                      router.push('/')
+                      // setUserProfile(res.data);
+                  })
+                  .catch((err:AxiosError) =>{
+                    setError(err.message);
+                    setLoading(false)
+                    setTimeout(() => {
+                      setError('')
+                    }, 3000)
+                  });
+          },
+          onError: (e) => console.log("error is ", e),
+      });
+  
+
 
   const handleRegister = async () => {
     if (!email || !password || !name) {
@@ -47,6 +91,14 @@ export default function Register() {
       console.log(error);
     }
   };
+
+
+
+  
+  const handleGoogleSignIn = async () => {
+    login();
+  }
+
 
 
    const MotionButtonComponent = motion.create(Button);
@@ -188,7 +240,7 @@ export default function Register() {
       >
         <Button
           className="w-1/2 p-4 rounded-[40px] shadow-2xl h-10 relative"
-          onClick={handleRegister}
+          onClick={handleGoogleSignIn}
         >
           <IconBrandGoogle /> <span>SignIn Via Google</span>
           {/* <BorderBeam

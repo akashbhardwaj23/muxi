@@ -10,6 +10,7 @@ import {AnimatePresence, motion} from "motion/react"
 import { Model } from "@/components/model";
 // import ChatComponent from "@/components/chats";
 
+
 export default function Dashboard() {
   const { tracks, currentTrack, setCurrenTrack, error } = useMusicContext();
   const [tab, setTab] = useState<"chat" | "list">("chat");
