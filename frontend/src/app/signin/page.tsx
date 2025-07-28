@@ -11,7 +11,7 @@ import { BorderBeam } from "@/components/magicui/border-beam";
 import { IconBrandGoogle } from "@tabler/icons-react";
 import axios, { AxiosError } from "axios";
 import { BACKEND_URL } from "@/config/config";
-import Loader from "@/components/loader";
+import Loader, { SignInLoader } from "@/components/loader";
 import { useRouter } from "next/navigation";
 import { sendSigninRequest } from "@/google/user";
 import { useGoogleLogin } from "@react-oauth/google";
@@ -153,10 +153,11 @@ export default function SignIn() {
               ease: "easeInOut",
             }}
             variant={"default"}
+            disabled={loading}
             className="w-[90%] md:w-[60%] cursor-pointer rounded-[40px] shadow-[-2px_5px_20px_-10px_var(--foreground)] bg-gradient-to-r from-sky-400 via-sky-500 to-sky-600 dark:bg-none dark:bg-white"
             onClick={handleSignIn}
           >
-            {loading ? <Loader className="top-0 h-4" /> : <span>Sign In</span>}
+            {loading ? <SignInLoader className="top-0 h-6" /> : <span>Sign In</span>}
           </MotionButtonComponent>
         </div>
 

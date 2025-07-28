@@ -5,6 +5,8 @@ import axios, { AxiosError } from "axios";
 import { createContext, Dispatch, SetStateAction, useCallback, useContext, useEffect, useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks"
 import { db } from "@/lib/db";
+import Dexie from "dexie"
+import { getAllSongs } from "@/server/actions";
 
 
 interface MusicContextType {
@@ -20,7 +22,6 @@ const MusicContext = createContext<MusicContextType | null>(null);
 
 
 
-
 export default function MusicContextProvider({
     children
 }: {
@@ -33,28 +34,28 @@ export default function MusicContextProvider({
 
     const fetchTracks = useCallback(async (token: string) => {
         try {
-            const response = await axios.get(`${BACKEND_URL}/api/v1/songs`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            console.log(response.data)
+            const response = await getAllSongs(token)
 
-            const data: TrackType[] = response.data.songs;
-            await db.tracks.bulkAdd(data)
+            // Wait for the response to come then add the data
+
+            Dexie.waitFor(response, 3000);
+            console.log("here in bulkAdd")
+            const data: TrackType[] = response.songs;
+            const res = await db.tracks.bulkAdd(data)
+
+            console.log("the dexie response is ", res)
 
             const current = data[0];
             console.log(data)
             setTracks(data)
             setCurrenTrack(current)
         } catch (e) {
-            console.log(e);
+            console.log("error in musiccontext ",e);
             const axioserror = e as AxiosError;
             setError(axioserror.message)
         }
     }, [])
     console.log("tracks are ", dbTracks)
-    console.log("dexie track ", dbTracks)
     // console.log("db of dexie is ", db)
 
     useEffect(() => {

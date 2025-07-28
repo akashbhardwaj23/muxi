@@ -9,4 +9,4 @@ db.version(1).stores({
     tracks : 'id, songName,favorite, songurl,songImg,songDesccription'
 })
 
-export {db}
+export { db }

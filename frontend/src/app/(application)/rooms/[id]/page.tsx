@@ -21,7 +21,7 @@ export default function RoomComponent({}) {
   const [openModel, setModelOpen] = useState(false);
   const [room, setRoom] = useState<Room>();
   const [loading, setLoading] = useState(false);
-  const [componentError, setComponentError] = useState("");
+  const [roomErrror, setRoomError] = useState("");
   const { tracks, currentTrack, setCurrenTrack, error } = useMusicContext();
   const router = useRouter()
 
@@ -48,7 +48,7 @@ export default function RoomComponent({}) {
         setCurrenTrack(room.song);
       } catch (error) {
         console.log(error);
-        setComponentError(error as string);
+        setRoomError(error as string);
         setLoading(false);
       }
     };
@@ -60,7 +60,7 @@ export default function RoomComponent({}) {
     return <Loader />;
   }
 
-  if (error || !tracks || !currentTrack || componentError || !room) {
+  if (error || !tracks || !currentTrack || roomErrror || !room) {
     return (
       <div className="flex justify-center items-center min-h-screen text-red-500 text-2xl mt-10">
         {error}

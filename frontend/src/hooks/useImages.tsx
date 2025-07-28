@@ -1,10 +1,8 @@
 import { BACKEND_URL } from "@/config/config";
+import { getImages } from "@/server/actions";
 import { ImageType } from "@/type/image";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
-
-
 
 export function useImages(){
     const [images, setImages] = useState<ImageType[]>([]);
@@ -13,9 +11,9 @@ export function useImages(){
     const fetchData = async() => {
         try {
             setLoading(true)
-            const response = await axios.get(`${BACKEND_URL}/api/v1/images`);
-            console.log("response is ", response.data)
-            const data:ImageType[] = response.data.images
+            const response = await getImages()
+            console.log("response is ", response)
+            const data:ImageType[] = response.images
             console.log("image data is ", data)
             setImages(data);
             setLoading(false)

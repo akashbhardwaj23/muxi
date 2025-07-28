@@ -3,14 +3,14 @@ import { motion, easeInOut } from "motion/react"
 
 export default function Loader({
   className
-} : {
-  className ? : string
-}){
-  return ( 
-      <div
+}: {
+  className?: string
+}) {
+  return (
+    <div
       className={cn("flex relative items-center justify-center w-full h-[40.6rem]", className)}>
-        <BarLoader />
-      </div>
+      <BarLoader />
+    </div>
   );
 };
 
@@ -45,6 +45,32 @@ const BarLoader = () => {
       <motion.div variants={variants} className="h-12 w-2 bg-forground" />
       <motion.div variants={variants} className="h-12 w-2 bg-forground" />
       <motion.div variants={variants} className="h-12 w-2 bg-forground" />
+    </motion.div>
+  );
+};
+
+
+// TODO: FIX THIS 
+
+export const SignInLoader = ({
+  className
+}: {
+  className: string
+}) => {
+  return (
+    <motion.div
+      transition={{
+        staggerChildren: 0.25,
+      }}
+      initial="initial"
+      animate="animate"
+      className="flex gap-1"
+    >
+      <motion.div variants={variants} className={`w-2 bg-forground ${className}`} />
+      <motion.div variants={variants} className={`w-2 bg-forground ${className}`} />
+      <motion.div variants={variants} className={`w-2 bg-forground ${className}`} />
+      <motion.div variants={variants} className={`w-2 bg-forground ${className}`} />
+      <motion.div variants={variants} className={`w-2 bg-forground ${className}`} />
     </motion.div>
   );
 };

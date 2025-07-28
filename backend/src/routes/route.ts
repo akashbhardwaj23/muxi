@@ -84,7 +84,7 @@ router.post("/register", async (req: Request, res: Response) => {
       },
     });
 
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!);
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!);
 
     res.json({
       userId: user.id,
@@ -183,10 +183,17 @@ router.post(
   }
 );
 
+let TOTAL_REQUEST_SONGS = 0
+
 router.get("/songs", AuthMiddleWare, async (req: Request, res: Response) => {
   const songs = await prisma.songs.findMany();
 
   //   console.log("songs are ", songs);
+
+  TOTAL_REQUEST_SONGS++;
+
+
+  console.log("Total song request ",TOTAL_REQUEST_SONGS)
   res.json({
     songs,
   });
@@ -246,10 +253,18 @@ router.get("/songs/:songId", async (req: Request, res: Response) => {
   }
 });
 
+let TOTAL_REQUEST_IMAGE = 0;
+
 router.get("/images", async (req, res) => {
   const imageResource = await getAllImages();
   const allImages = imageResource.resources;
-  console.log("all images ", allImages)
+  // console.log("all images ", allImages)
+
+  TOTAL_REQUEST_IMAGE++;
+
+
+
+  console.log("Total Image Request ", TOTAL_REQUEST_IMAGE)
   res.json({
     images : allImages
   })
