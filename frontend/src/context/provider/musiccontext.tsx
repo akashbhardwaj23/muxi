@@ -1,7 +1,6 @@
 "use client"
-import { BACKEND_URL } from "@/config/config";
 import { TrackType } from '@/config/types'
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { createContext, Dispatch, SetStateAction, useCallback, useContext, useEffect, useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks"
 import { db } from "@/lib/db";

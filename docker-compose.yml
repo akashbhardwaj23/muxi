@@ -9,4 +9,12 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    environment:
+              - NEXT_PUBLIC_APIKEY=${NEXT_PUBLIC_APIKEY}
+              - NEXT_PUBLIC_APPID=${NEXT_PUBLIC_APPID}
+              - NEXT_PUBLIC_AUTHDOMAIN=${NEXT_PUBLIC_AUTHDOMAIN}
+              - NEXT_PUBLIC_DATABASE_URL=${NEXT_PUBLIC_DATABASE_URL}
+              - NEXT_PUBLIC_MESSAGESENDERID=${NEXT_PUBLIC_MESSAGESENDERID}
+              - NEXT_PUBLIC_PROJECTID=${NEXT_PUBLIC_PROJECTID}
+              - NEXT_PUBLIC_STORAGEBUCKET=${NEXT_PUBLIC_STORAGEBUCKET}
     image: akashbhardwaj24/muxi-frontend

@@ -11,7 +11,7 @@ import { BorderBeam } from "@/components/magicui/border-beam";
 import { IconBrandGoogle } from "@tabler/icons-react";
 import axios, { AxiosError } from "axios";
 import { BACKEND_URL } from "@/config/config";
-import Loader, { SignInLoader } from "@/components/loader";
+import { SignInLoader } from "@/components/loader";
 import { useRouter } from "next/navigation";
 import { sendSigninRequest } from "@/google/user";
 import { useGoogleLogin } from "@react-oauth/google";

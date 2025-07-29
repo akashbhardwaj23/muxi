@@ -1,7 +1,5 @@
-import { BACKEND_URL } from "@/config/config";
 import { getImages } from "@/server/actions";
 import { ImageType } from "@/type/image";
-import axios from "axios";
 import { useEffect, useState } from "react";
 
 export function useImages(){
