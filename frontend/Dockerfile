@@ -33,6 +33,7 @@ ENV NEXT_PUBLIC_STORAGEBUCKET=$NEXT_PUBLIC_STORAGEBUCKET
 COPY ./package*.json .
 COPY ./next.config.ts .
 
+
 RUN npm install
 
 COPY . .
