@@ -16,8 +16,6 @@ const firebaseConfig = {
 };
 
 
-console.log("Database Url ", process.env.NEXT_PUBLIC_DATABASE_URL)
-
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getDatabase(app);

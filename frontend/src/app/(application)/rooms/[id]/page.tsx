@@ -14,7 +14,7 @@ import { Model } from "@/components/model";
 import axios from "axios";
 import { BACKEND_URL } from "@/config/config";
 import { Room } from "@/config/types";
-import { useUser } from "@/context/provider/userprovider";
+
 
 export default function RoomComponent() {
   const params = useParams();

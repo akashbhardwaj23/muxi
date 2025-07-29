@@ -131,7 +131,7 @@ export default function Rooms() {
     >
       <div className="max-w-4xl mx-auto min-h-screen flex flex-col items-center gap-10">
         <Toaster />
-        <div className="p-8 md:p-10 bg-card border border-border dark:border-forground relative w-[60%] z-50 rounded-[40px] dark:bg-transparent ">
+        <div className="p-8 md:p-10 bg-card border border-border dark:border-forground relative sm:w-[60%] w-[90%] z-50 rounded-[40px] dark:bg-transparent ">
           <ShineBorder shineColor={["#A07CFE", "#FE8FB5", "#FFBE7B"]} />
           <div className="flex flex-col items-center w-full gap-10">
             <h1 className="text-2xl md:text-4xl font-poppins font-bold">
@@ -180,7 +180,7 @@ export default function Rooms() {
         </div>
         <div className="mb-8 md:mb-10 p-4">
           <h2 className="text-2xl md:text-4xl font-poppins font-bold mb-4">Rooms</h2>
-          <div className="grid grid-cols-2 gap-4 w-full">
+          <div className="grid grid-cols-2 gap-4 w-[90%]] md:w-full">
             {rooms.length > 0 &&
               rooms.map((room, index) => (
                 <Link href={`/rooms/${room.id}`} key={index}>
