@@ -29,6 +29,7 @@ export default function UserProvider({
                 try {
                     const response = await axios.get(`${BACKEND_URL}/api/v1/user/${userId}`);
                     const data = response.data;
+                    console.log("user data ", data)
                     setUser(data.user);
                 } catch (error) {
                     console.log(error)
@@ -37,8 +38,10 @@ export default function UserProvider({
     
     
             fetchUser()
+        } else {
+            setUser(null)
         }
-        setUser(null)
+        
     }, [])
 
 

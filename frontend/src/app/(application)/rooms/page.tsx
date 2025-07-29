@@ -131,7 +131,7 @@ export default function Rooms() {
     >
       <div className="max-w-4xl mx-auto min-h-screen flex flex-col items-center gap-10">
         <Toaster />
-        <div className="p-8 md:p-10 bg-card border border-border dark:border-forground relative md:w-[60%] w-[90%] z-50 rounded-[40px] dark:bg-transparent ">
+        <div className="p-8 md:p-10 bg-card border border-border dark:border-forground relative w-[60%] z-50 rounded-[40px] dark:bg-transparent ">
           <ShineBorder shineColor={["#A07CFE", "#FE8FB5", "#FFBE7B"]} />
           <div className="flex flex-col items-center w-full gap-10">
             <h1 className="text-2xl md:text-4xl font-poppins font-bold">

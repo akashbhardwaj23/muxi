@@ -37,7 +37,7 @@ export default function MusicContextProvider({
 
             // Wait for the response to come then add the data
 
-            Dexie.waitFor(response, 3000);
+            await Dexie.waitFor(response);
             console.log("here in bulkAdd")
             const data: TrackType[] = response.songs;
             const res = await db.tracks.bulkAdd(data)
@@ -59,6 +59,7 @@ export default function MusicContextProvider({
 
     useEffect(() => {
         const token = localStorage.getItem("token")!
+        setError('')
         // db populating the first data / db creation at the first time
         db.on("populate", async () => {
             console.log("here in populate")
@@ -69,7 +70,7 @@ export default function MusicContextProvider({
         if ((dbTracks && dbTracks.length === 0)) {
             console.log("There is no db track")
             fetchTracks(token)
-        } else if (dbTracks && dbTracks.length > 0) {
+        } else if (dbTracks && dbTracks.length > 0 && !tracks) {
             console.log("Db tracks setting")
             setTracks(dbTracks)
             setCurrenTrack(dbTracks[0])
